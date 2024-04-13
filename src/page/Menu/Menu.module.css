@@ -1,0 +1,23 @@
+.foodCardContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-columns: auto;
+  gap: 20px;
+}
+.fixedButtonContainer {
+  position: fixed;
+  bottom: 20px;
+  left: 50%; /* Разместить кнопку по середине горизонтально */
+  transform: translateX(-50%); /* Сдвиг кнопки на половину её ширины влево */
+  z-index: 9;
+}
+
+.fixedButton {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+

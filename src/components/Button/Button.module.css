@@ -1,0 +1,11 @@
+/* Button.module.css */
+.button {
+    width: 97px;
+    height: 37px;
+    background-color: #333333;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
