@@ -10,8 +10,9 @@ export default function Order() {
   return (
     <div>
       <pre>
-        {JSON.stringify(window.Telegram.WebApp.initDataUnsafe.user.id)}
-        {JSON.stringify(window.Telegram.WebApp.initDataUnsafe.chat.id)}
+        {JSON.stringify(window.Telegram.WebApp.initDataUnsafe)}
+        {/* {JSON.stringify(window.Telegram.WebApp.initDataUnsafe.user?.id)}
+        {JSON.stringify(window.Telegram.WebApp.initDataUnsafe.chat?.id)} */}
       </pre>
     </div>
   );
