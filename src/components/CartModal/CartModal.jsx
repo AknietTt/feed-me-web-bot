@@ -21,8 +21,7 @@ const CartModal = ({ isOpen, onClose, onClear }) => {
   };
 
   const handleDecreaseQuantity = (itemId) => {
-
-        dispatch(cartActions.remove(itemId));
+    dispatch(cartActions.remove(itemId));
   };
 
   return (
@@ -65,10 +64,9 @@ const CartModal = ({ isOpen, onClose, onClear }) => {
                 </button>
               </div>
             </div>
-            
           </div>
         ))}
-<div style={{paddingBottom:"200px"}}></div>
+        <div style={{ paddingBottom: "200px" }}></div>
         <Button
           style={{
             position: "absolute",
@@ -79,7 +77,9 @@ const CartModal = ({ isOpen, onClose, onClear }) => {
             transform: "translateX(-50%)",
           }}
           disable={cart.items.length === 0}
-          onClick={()=>{naviagte("/order")}}
+          onClick={() => {
+            naviagte("/order");
+          }}
         >
           <div
             style={{
@@ -88,11 +88,10 @@ const CartModal = ({ isOpen, onClose, onClear }) => {
               alignItems: "center",
             }}
           >
-            <span style={{ marginRight: "50%" }} >Перейти к оплате</span>
+            <span style={{ marginRight: "50%" }}>Перейти к оплате</span>
             <span>{`${cartTotal}₸`}</span>
           </div>
         </Button>
-        
       </div>
     </div>
   );

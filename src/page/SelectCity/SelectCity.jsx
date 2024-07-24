@@ -46,6 +46,7 @@ function SelectCity() {
       <div style={{ marginTop: 50 }}>
         <img src="/imageMain.svg" width="200px" alt="Главное изображение" />
       </div>
+      
     </div>
   );
 }
