@@ -13,7 +13,7 @@ export default function Restaurnts() {
   const dispatch = useDispatch();
 
   const getRestaurantsById = async (id) => {
-    const result = await axios.get(`${HOST}/restaurnat/all/${id}`);
+    const result = await axios.get(`${HOST}/restaurant/all/${id}`);
     console.log(result.data);
     setRestaurants(result.data.value);
   };
