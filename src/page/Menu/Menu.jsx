@@ -84,7 +84,7 @@ export default function Menu() {
           )}{" "}
         </div>
       </div>
-      <CartModal isOpen={isCartModalOpen} onClose={handleCloseCartModal} onClear={handleClearCartModal} />
+      <CartModal isOpen={isCartModalOpen} onClose={handleCloseCartModal} onClear={handleClearCartModal} restaurantId={id} />
       <div style={{ margin: "150px" }}></div>
     </div>
   );

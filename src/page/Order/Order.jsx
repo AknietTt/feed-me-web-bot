@@ -3,10 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./Order.module.css";
 import axios from "axios";
 import { cartActions } from "../../store/cartSlice";
+import { useLocation } from "react-router-dom";
 
 export default function OrderForm() {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
+  const location = useLocation();
+  const { branchId } = location.state; // Получаем id филиала
 
   const [formData, setFormData] = useState({
     name: "",
@@ -45,6 +48,7 @@ export default function OrderForm() {
       entrance: formData.entrance,
       intercom: formData.intercomCode,
       comment: formData.comment,
+      branchId :branchId,
       orderDetailDtos
     };
 
