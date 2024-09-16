@@ -7,7 +7,7 @@ import { IoClose } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-const CartModal = ({ isOpen, onClose, onClear , restaurantId}) => {
+const CartModal = ({ isOpen, onClose, onClear , restaurantId , cityId}) => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [disable, setDisable] = useState(false);
@@ -78,7 +78,7 @@ const CartModal = ({ isOpen, onClose, onClear , restaurantId}) => {
           }}
           disable={cart.items.length === 0}
           onClick={() => {
-            naviagte(`/branch/${restaurantId}` );
+            naviagte(`/${cityId}/branch/${restaurantId}` );
           }}
         >
           <div

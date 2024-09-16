@@ -69,7 +69,7 @@ export default function Restaurants() {
             className={styles["card"]}
             key={restaurant.id}
             onClick={() =>
-              navigate(`/menu/${restaurant.id}`, {
+              navigate(`/${cityId}/menu/${restaurant.id}`, {
                 state: {
                   imageUrl: restaurant.photo,
                   name: restaurant.name,

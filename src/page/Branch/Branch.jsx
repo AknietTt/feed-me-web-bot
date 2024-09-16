@@ -8,11 +8,12 @@ export default function Branch() {
   const { restaurantId } = useParams();
   const [branches, setBranches] = useState([]);
   const navigate = useNavigate(); // Хук для программной навигации
+  const { cityId } = useParams();
 
   // Запрос для получения филиалов ресторана по restaurantId
   const getBranchesByRestaurantId = async (id) => {
     try {
-      const response = await axios.get(HOST + `/branch/restaurant/${id}`);
+      const response = await axios.get(HOST + `/branch/restaurant/${id}/${cityId}`);
       if (response.data.isSuccess) {
         setBranches(response.data.value);
       } else {

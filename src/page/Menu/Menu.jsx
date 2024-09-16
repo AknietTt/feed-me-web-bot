@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Haeder from "../../components/Header/Haeder";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import FoodCard from "../../components/FoodCard/FoodCard";
 import axios from "axios";
 import { HOST } from "../../constants";
@@ -13,6 +13,7 @@ import CartModal from "../../components/CartModal/CartModal";
 export default function Menu() {
   const [foods, setFood] = useState([]);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+  const { cityId } = useParams();
 
   const location = useLocation();
   const { imageUrl } = location.state;
@@ -84,7 +85,7 @@ export default function Menu() {
           )}{" "}
         </div>
       </div>
-      <CartModal isOpen={isCartModalOpen} onClose={handleCloseCartModal} onClear={handleClearCartModal} restaurantId={id} />
+      <CartModal isOpen={isCartModalOpen} onClose={handleCloseCartModal} onClear={handleClearCartModal} restaurantId={id} cityId={cityId} />
       <div style={{ margin: "150px" }}></div>
     </div>
   );

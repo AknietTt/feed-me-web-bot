@@ -19,11 +19,11 @@ const router = createBrowserRouter([
     element: <SelectCity />,
   },
   {
-    path: "/restaurant/:cityId",
+    path: "/:cityId/restaurant",
     element: <Restaurnts />,
   },
   {
-    path: "/menu/:restaurantId",
+    path: "/:cityId/menu/:restaurantId",
     element: <Menu />,
   },
   {
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
   }
   ,
   {
-    path: "/branch/:restaurantId",
+    path: "/:cityId/branch/:restaurantId",
     element: <Branch />,
   }
 ]);
