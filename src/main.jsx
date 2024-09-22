@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store.js";
 import Order from "./page/Order/Order.jsx";
 import Branch from "./page/Branch/Branch.jsx";
+import Done from "./page/Done/Done.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/:cityId/branch/:restaurantId",
     element: <Branch />,
+  },
+  {
+    path:"/done",
+    element:<Done/>
   }
 ]);
 
