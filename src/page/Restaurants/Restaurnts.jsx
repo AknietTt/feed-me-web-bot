@@ -66,15 +66,18 @@ export default function Restaurants() {
         />
         {restaurants.map((restaurant) => (
           <div
-            className={styles["card"]}
+            className={`${styles["card"]} ${
+              !restaurant.isOpen ? styles["closed-card"] : ""
+            }`}
             key={restaurant.id}
             onClick={() =>
+              restaurant.isOpen &&
               navigate(`/${cityId}/menu/${restaurant.id}`, {
                 state: {
                   imageUrl: restaurant.photo,
                   name: restaurant.name,
                   desc: restaurant.description,
-                  id: restaurant.id
+                  id: restaurant.id,
                 },
               })
             }
@@ -89,6 +92,9 @@ export default function Restaurants() {
             <div style={{ marginLeft: 5 }}>
               <p className={styles["main-text"]}>{restaurant.name}</p>
               <p className={styles["desc-text"]}>{restaurant.description}</p>
+              {!restaurant.isOpen && (
+                <p className={styles["closed-text"]}>Ресторан закрыт</p>
+              )}
             </div>
           </div>
         ))}

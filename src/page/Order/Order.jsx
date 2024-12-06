@@ -4,12 +4,14 @@ import styles from "./Order.module.css";
 import axios from "axios";
 import { cartActions } from "../../store/cartSlice";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function OrderForm() {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
   const location = useLocation();
-  const { branchId } = location.state; // Получаем id филиала
+  const { branchId, orderType } = location.state; // Получаем id филиала и тип заказа (доставка или самовывоз)
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -33,22 +35,21 @@ export default function OrderForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(cartItems);
-    
     const orderDetailDtos = cartItems.map((item) => ({
       foodId: item.food.id,
       count: item.count
     }));
 
     const requestBody = {
-      summa: 0, // Assuming you calculate the total sum elsewhere
-      address: formData.address,
+      summa: 0, // Предполагается, что сумма рассчитывается отдельно
+      address: orderType === "delivery" ? formData.address : "Самовывоз",
       nameCustomer: formData.name,
       phoneNumber: formData.phoneNumber,
-      entrance: formData.entrance,
-      intercom: formData.intercomCode,
+      entrance: orderType === "delivery" ? formData.entrance : "",
+      intercom: orderType === "delivery" ? formData.intercomCode : "",
       comment: formData.comment,
-      branchId :branchId,
+      pickup: orderType === "pickup", // Определяем, является ли заказ самовывозом
+      branchId: branchId,
       orderDetailDtos
     };
 
@@ -56,7 +57,7 @@ export default function OrderForm() {
       const response = await axios.post("https://localhost:7284/Order/create", requestBody);
       console.log(response.data);
 
-      // Clear the form
+      // Очистить форму
       setFormData({
         name: "",
         address: "",
@@ -69,6 +70,7 @@ export default function OrderForm() {
       });
 
       dispatch(cartActions.clean());
+      navigate("/done")
     } catch (error) {
       console.error("Error creating order:", error);
     }
@@ -89,18 +91,55 @@ export default function OrderForm() {
             className={styles.input}
           />
         </div>
-        <div className={styles.formGroup}>
-          <input
-            type="text"
-            id="address"
-            name="address"
-            placeholder="Адрес"
-            value={formData.address}
-            onChange={handleChange}
-            required
-            className={styles.input}
-          />
-        </div>
+        {orderType === "delivery" && (
+          <>
+            <div className={styles.formGroup}>
+              <input
+                type="text"
+                id="address"
+                name="address"
+                placeholder="Адрес"
+                value={formData.address}
+                onChange={handleChange}
+                required
+                className={styles.input}
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <input
+                type="text"
+                id="entrance"
+                name="entrance"
+                value={formData.entrance}
+                onChange={handleChange}
+                className={styles.input}
+                placeholder="Подъезд"
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <input
+                type="text"
+                id="intercomCode"
+                name="intercomCode"
+                value={formData.intercomCode}
+                onChange={handleChange}
+                className={styles.input}
+                placeholder="Код домофона"
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <input
+                type="text"
+                id="apartmentOfficeNumber"
+                name="apartmentOfficeNumber"
+                value={formData.apartmentOfficeNumber}
+                onChange={handleChange}
+                className={styles.input}
+                placeholder="Квартира/Офис"
+              />
+            </div>
+          </>
+        )}
         <div className={styles.formGroup}>
           <input
             type="tel"
@@ -114,39 +153,6 @@ export default function OrderForm() {
           />
         </div>
         <div className={styles.formGroup}>
-          <input
-            type="text"
-            id="entrance"
-            name="entrance"
-            value={formData.entrance}
-            onChange={handleChange}
-            className={styles.input}
-            placeholder="Подъезд"
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <input
-            type="text"
-            id="intercomCode"
-            name="intercomCode"
-            value={formData.intercomCode}
-            onChange={handleChange}
-            className={styles.input}
-            placeholder="Код домофона"
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <input
-            type="text"
-            id="apartmentOfficeNumber"
-            name="apartmentOfficeNumber"
-            value={formData.apartmentOfficeNumber}
-            onChange={handleChange}
-            className={styles.input}
-            placeholder="Квартира/Офис:"
-          />
-        </div>
-        <div className={styles.formGroup}>
           <textarea
             id="comment"
             name="comment"
@@ -156,7 +162,9 @@ export default function OrderForm() {
             placeholder="Комментарий"
           />
         </div>
-        <button type="submit" className={styles.submitButton}>Отправить</button>
+        <button type="submit" className={styles.submitButton}>
+          Отправить
+        </button>
       </form>
     </div>
   );

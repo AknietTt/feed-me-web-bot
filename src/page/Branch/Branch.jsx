@@ -13,7 +13,9 @@ export default function Branch() {
   // Запрос для получения филиалов ресторана по restaurantId
   const getBranchesByRestaurantId = async (id) => {
     try {
-      const response = await axios.get(HOST + `/branch/restaurant/${id}/${cityId}`);
+      const response = await axios.get(
+        HOST + `/branch/restaurant/${id}/${cityId}`
+      );
       if (response.data.isSuccess) {
         setBranches(response.data.value);
       } else {
@@ -29,25 +31,37 @@ export default function Branch() {
   }, [restaurantId]);
 
   // Функция для перехода на страницу заказа
-  const handleOrder = (branchId) => {
-    navigate(`/order`, { state: { branchId } }); // Передаем id филиала через state
+  const handleOrder = (branchId, type) => {
+    navigate(`/order`, { state: { branchId, orderType: type } }); // Передаем id филиала и тип заказа через state
   };
 
   return (
     <div className={styles["branch-container"]}>
-      <h2>Выберите филиал для заказа</h2>
+      <h2>Выберите филиал и способ заказа</h2>
       <div className={styles["branch-list"]}>
         {branches.map((branch) => (
           <div className={styles["branch-card"]} key={branch.id}>
             <h3>{branch.restaurant}</h3>
-            <p>Город: {branch.city}</p>
+            <p>Город: {branch.city.name}</p>
             <p>Адрес: {branch.address}</p>
-            <button
-              className={styles["order-button"]}
-              onClick={() => handleOrder(branch.id)} // Вызываем функцию с id филиала
-            >
-              Заказать из этого филиала
-            </button>
+            <div className={styles["order-buttons"]}>
+              {branch.pickup && (
+                <button
+                  className={styles["pickup-button"]}
+                  onClick={() => handleOrder(branch.id, "pickup")}
+                >
+                  Самовывоз
+                </button>
+              )}
+              {branch.delevery && (
+                <button
+                  className={styles["delivery-button"]}
+                  onClick={() => handleOrder(branch.id, "delivery")}
+                >
+                  Доставка
+                </button>
+              )}
+            </div>
           </div>
         ))}
       </div>

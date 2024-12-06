@@ -1,54 +1,103 @@
 .branch-container {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: "Roboto", sans-serif;
+}
+
+.branch-container h2 {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.branch-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.branch-card {
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1),
+    -4px -4px 10px rgba(255, 255, 255, 1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.branch-card:hover {
+  transform: scale(1.03);
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.15),
+    -4px -4px 20px rgba(255, 255, 255, 1);
+}
+
+h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+p {
+  font-size: 16px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.order-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.pickup-button,
+.delivery-button {
+  flex: 1;
+  margin: 5px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pickup-button {
+  background-color: #28a745; /* Зеленый цвет для самовывоза */
+}
+
+.delivery-button {
+  background-color: #ff4757; /* Красный цвет для доставки */
+}
+
+.pickup-button:hover,
+.delivery-button:hover {
+  background-color: #555; /* Темный оттенок при наведении */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .branch-container {
+    padding: 15px;
   }
-  
-  .branch-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .branch-card {
-    background-color: #f9f9f9;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 20px;
-    width: 100%;
-    max-width: 300px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-  }
-  
-  .branch-card:hover {
-    transform: translateY(-5px);
-  }
-  
+
   h3 {
     font-size: 18px;
-    margin-bottom: 10px;
   }
-  
+
   p {
     font-size: 14px;
-    margin: 5px 0;
-    color: #555;
   }
-  
-  .order-button {
-    margin-top: 10px;
-    background-color: #333333;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
+
+  .pickup-button,
+  .delivery-button {
     font-size: 14px;
-    transition: background-color 0.3s;
+    padding: 8px 10px;
   }
-  
-  .order-button:hover {
-    background-color: #ff4757;
-  }
-  
+}

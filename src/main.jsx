@@ -17,30 +17,36 @@ import Done from "./page/Done/Done.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <SelectCity />,
+    element: <SelectCity />, // Страница без Bottom Navigation
   },
   {
-    path: "/:cityId/restaurant",
-    element: <Restaurnts />,
+    path: "/done",
+    element: <Done />, // Страница без Bottom Navigation
   },
   {
-    path: "/:cityId/menu/:restaurantId",
-    element: <Menu />,
+    path: "/",
+    element: <AppLayout />, // Обертка с навигацией
+    children: [
+      {
+        path: "/:cityId/restaurant",
+        element: <Restaurnts />,
+      },
+      {
+        path: "/:cityId/menu/:restaurantId",
+        element: <Menu />,
+      },
+      {
+        path: "/order",
+        element: <Order />,
+      },
+      {
+        path: "/:cityId/branch/:restaurantId",
+        element: <Branch />,
+      },
+    ],
   },
-  {
-    path: "/order",
-    element: <Order />,
-  }
-  ,
-  {
-    path: "/:cityId/branch/:restaurantId",
-    element: <Branch />,
-  },
-  {
-    path:"/done",
-    element:<Done/>
-  }
 ]);
+
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
