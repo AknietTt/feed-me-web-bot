@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import { Paper, Box } from "@mui/material";
 import { Truck, ShoppingBag, Calendar, QrCode } from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const BottomNavigation = () => {
   const [selected, setSelected] = useState("delivery");
+  const navigate = useNavigate();
+  const { cityId } = useParams(); // Получаем cityId из параметров
 
   const buttons = [
-    { id: "delivery", label: "Доставка", icon: Truck },
-    { id: "pickup", label: "Самовывоз", icon: ShoppingBag },
-    { id: "booking", label: "Бронировать", icon: Calendar },
-    { id: "qrmenu", label: "QR-меню", icon: QrCode },
+    { id: "delivery", label: "Доставка", icon: Truck, route: "restaurant" },
+    { id: "pickup", label: "Самовывоз", icon: ShoppingBag, route: "pickup" },
+    { id: "booking", label: "Бронирование", icon: Calendar, route: "booking" },
+    { id: "qrmenu", label: "QR-меню", icon: QrCode, route: "qrmenu" },
   ];
 
-  const handleSelect = (id) => {
+  const handleSelect = (id, route) => {
     setSelected(id);
+    navigate(`/${cityId}/${route}`); // Переход с учетом cityId
   };
 
   return (
@@ -32,10 +36,10 @@ const BottomNavigation = () => {
       }}
       elevation={3}
     >
-      {buttons.map(({ id, label, icon: Icon }) => (
+      {buttons.map(({ id, label, icon: Icon, route }) => (
         <Box
           key={id}
-          onClick={() => handleSelect(id)}
+          onClick={() => handleSelect(id, route)} // Передаем ID и маршрут
           sx={{
             display: "flex",
             flexDirection: "column",

@@ -3,20 +3,26 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { HOST } from "../../constants";
 import styles from "./Restaurants.module.css";
-import { useDispatch } from "react-redux";
-import { cartActions } from "../../store/cartSlice";
+import { Truck, ShoppingBag, Calendar } from "lucide-react"; // Импорт иконок
 
 export default function Restaurants() {
   const [restaurants, setRestaurants] = useState([]);
   const [searchText, setSearchText] = useState(""); // Для хранения текста поиска
   const [debounceTimer, setDebounceTimer] = useState(null); // Для управления таймером задержки
-  const navigate = useNavigate();
   const { cityId } = useParams();
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const getRestaurantsById = async (id) => {
-    const result = await axios.get(`${HOST}/restaurant/all/${id}`);
-    setRestaurants(result.data.value);
+  const getRestaurantsWithDelivery = async (id) => {
+    try {
+      const response = await axios.get(`${HOST}/restaurant/with-delivery/${id}`);
+      if (response.data.isSuccess) {
+        setRestaurants(response.data.value);
+      } else {
+        console.error("Ошибка при загрузке ресторанов:", response.data.error);
+      }
+    } catch (error) {
+      console.error("Ошибка при запросе ресторанов:", error);
+    }
   };
 
   const searchRestaurants = async (query) => {
@@ -42,7 +48,7 @@ export default function Restaurants() {
       if (text.trim()) {
         searchRestaurants(text); // Выполняем запрос с текущим текстом поиска
       } else {
-        getRestaurantsById(cityId); // Если поле пустое, загружаем все рестораны
+        getRestaurantsWithDelivery(cityId); // Если поле пустое, загружаем рестораны с доставкой
       }
     }, 2000);
 
@@ -50,14 +56,13 @@ export default function Restaurants() {
   };
 
   useEffect(() => {
-    getRestaurantsById(cityId);
-    dispatch(cartActions.clean());
-  }, [cityId, dispatch]);
+    getRestaurantsWithDelivery(cityId);
+  }, [cityId]);
 
   return (
     <div className={styles["content"]}>
       <div>
-        <h2>Рестораны</h2>
+        <h2>Рестораны с доставкой</h2>
         <input
           className={styles["input"]}
           value={searchText}
@@ -66,12 +71,9 @@ export default function Restaurants() {
         />
         {restaurants.map((restaurant) => (
           <div
-            className={`${styles["card"]} ${
-              !restaurant.isOpen ? styles["closed-card"] : ""
-            }`}
+            className={styles["card"]}
             key={restaurant.id}
             onClick={() =>
-              restaurant.isOpen &&
               navigate(`/${cityId}/menu/${restaurant.id}`, {
                 state: {
                   imageUrl: restaurant.photo,
@@ -92,9 +94,26 @@ export default function Restaurants() {
             <div style={{ marginLeft: 5 }}>
               <p className={styles["main-text"]}>{restaurant.name}</p>
               <p className={styles["desc-text"]}>{restaurant.description}</p>
-              {!restaurant.isOpen && (
-                <p className={styles["closed-text"]}>Ресторан закрыт</p>
-              )}
+              <div className={styles["icons-container"]}>
+                {restaurant.delivery && (
+                  <Truck
+                    size={20}
+                    color="#2ecc71" // Зеленый цвет для доставки
+                  />
+                )}
+                {restaurant.pickup && (
+                  <ShoppingBag
+                    size={20}
+                    color="#2ecc71" // Зеленый цвет для самовывоза
+                  />
+                )}
+                {restaurant.booking && (
+                  <Calendar
+                    size={20}
+                    color="#2ecc71" // Зеленый цвет для брони
+                  />
+                )}
+              </div>
             </div>
           </div>
         ))}

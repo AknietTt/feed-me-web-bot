@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import BottomNavigation from "../components/BottomNavigation";
+import BottomNavigation from "../BottomNavigation/BottomNavigation";
 
 const AppLayout = () => {
   const location = useLocation();

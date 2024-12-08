@@ -13,41 +13,69 @@ import { store } from "./store/store.js";
 import Order from "./page/Order/Order.jsx";
 import Branch from "./page/Branch/Branch.jsx";
 import Done from "./page/Done/Done.jsx";
+import AppLayout from "./components/AppLayout/AppLayout.jsx";
+import Pickup from "./page/Pickup/Pickup.jsx";
+import Reservation from "./page/Reservation/Reservation.jsx";
+import BranchTable from "./page/BranchTable/BranchTable.jsx";
+import TableList from "./page/TableList/TableList.jsx";
+import ReservationForm from "./page/ReservationForm/ReservationForm.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <SelectCity />, // Страница без Bottom Navigation
+    element: <SelectCity />, // Страница выбора города
   },
   {
     path: "/done",
-    element: <Done />, // Страница без Bottom Navigation
+    element: <Done />, // Страница завершения
   },
   {
-    path: "/",
-    element: <AppLayout />, // Обертка с навигацией
+    path: "/:cityId",
+    element: <AppLayout />, // Обертка с Bottom Navigation
     children: [
       {
-        path: "/:cityId/restaurant",
-        element: <Restaurnts />,
+        path: "restaurant",
+        element: <Restaurnts />, // Список ресторанов
       },
       {
-        path: "/:cityId/menu/:restaurantId",
-        element: <Menu />,
+        path: "menu/:restaurantId",
+        element: <Menu />, // Меню ресторана
       },
       {
-        path: "/order",
-        element: <Order />,
+        path: "order",
+        element: <Order />, // Заказы
       },
       {
-        path: "/:cityId/branch/:restaurantId",
-        element: <Branch />,
+        path: "pickup",
+        element: <Pickup />, // Самовывоз
+      },
+      {
+        path: "booking",
+        element: <Reservation />, // Бронирование
+      },
+      {
+        path: "qrmenu",
+        element: <Reservation />, // QR-меню
+      },
+      {
+        path: "branch/:restaurantId",
+        element: <Branch />, // Филиалы ресторанов
+      },
+      {
+        path: "branches-with-tables/:restaurantId",
+        element: <BranchTable />, // Филиалы ресторанов
+      },
+      {
+        path: "branches-with-tables/:restaurantId/branch/tables/:branchId",
+        element: <TableList />,
+      },
+      {
+        path: "branch/tables/:branchId/reservation/:tableId",
+        element: <ReservationForm />,
       },
     ],
   },
 ]);
-
-
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>

@@ -26,8 +26,9 @@ function SelectCity() {
 
   const handleSelect = () => {
     console.log("Выбран город с id:", selectedCityId);
-   navigate(`/${selectedCityId}/restaurant`)
-  }
+    navigate(`/${selectedCityId}/restaurant`); // Переход с cityId
+  };
+  
 
   return (
     <div style={{ textAlign: "center", backgroundColor: "white", height: "100vh" }}>
