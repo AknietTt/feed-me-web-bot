@@ -44,6 +44,10 @@ export default function Branch() {
             <h3>{branch.restaurant}</h3>
             <p>Город: {branch.city.name}</p>
             <p>Адрес: {branch.address}</p>
+            <p>
+              Стоимость доставки:{" "}
+              {branch.paidDelivery > 0 ? `${branch.paidDelivery} тг` : "Бесплатно"}
+            </p>
             <div className={styles["order-buttons"]}>
               {branch.pickup && (
                 <button

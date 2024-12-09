@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { HOST } from "../../constants";
 import styles from "./Restaurants.module.css";
-import { Truck, ShoppingBag, Calendar } from "lucide-react"; // Импорт иконок
+import { Truck, ShoppingBag, Calendar, DollarSign } from "lucide-react"; // Импорт иконок
 
 export default function Restaurants() {
   const [restaurants, setRestaurants] = useState([]);
@@ -111,6 +111,12 @@ export default function Restaurants() {
                   <Calendar
                     size={20}
                     color="#2ecc71" // Зеленый цвет для брони
+                  />
+                )}
+                {restaurant.isPaidDelivery && (
+                  <DollarSign
+                    size={20}
+                    color="#ffcc00" // Желтый цвет для платной доставки
                   />
                 )}
               </div>
