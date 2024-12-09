@@ -32,7 +32,7 @@ export default function Branch() {
 
   // Функция для перехода на страницу заказа
   const handleOrder = (branchId, type) => {
-    navigate(`/order`, { state: { branchId, orderType: type } }); // Передаем id филиала и тип заказа через state
+    navigate(`/${cityId}/order`, { state: { branchId, orderType: type } }); // Передаем id филиала и тип заказа через state
   };
 
   return (
@@ -53,7 +53,7 @@ export default function Branch() {
                   Самовывоз
                 </button>
               )}
-              {branch.delevery && (
+              {branch.delivery && (
                 <button
                   className={styles["delivery-button"]}
                   onClick={() => handleOrder(branch.id, "delivery")}
