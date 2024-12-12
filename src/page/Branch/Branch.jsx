@@ -31,8 +31,8 @@ export default function Branch() {
   }, [restaurantId]);
 
   // Функция для перехода на страницу заказа
-  const handleOrder = (branchId, type) => {
-    navigate(`/${cityId}/order`, { state: { branchId, orderType: type } }); // Передаем id филиала и тип заказа через state
+  const handleOrder = (branchId, type , deliverySumm) => {
+    navigate(`/${cityId}/order`, { state: { branchId, orderType: type, deliverySumm} }); // Передаем id филиала и тип заказа через state
   };
 
   return (
@@ -52,7 +52,7 @@ export default function Branch() {
               {branch.pickup && (
                 <button
                   className={styles["pickup-button"]}
-                  onClick={() => handleOrder(branch.id, "pickup")}
+                  onClick={() => handleOrder(branch.id, "pickup",0 )}
                 >
                   Самовывоз
                 </button>
@@ -60,7 +60,7 @@ export default function Branch() {
               {branch.delivery && (
                 <button
                   className={styles["delivery-button"]}
-                  onClick={() => handleOrder(branch.id, "delivery")}
+                  onClick={() => handleOrder(branch.id, "delivery" , branch.paidDelivery)}
                 >
                   Доставка
                 </button>

@@ -19,6 +19,8 @@ import Reservation from "./page/Reservation/Reservation.jsx";
 import BranchTable from "./page/BranchTable/BranchTable.jsx";
 import TableList from "./page/TableList/TableList.jsx";
 import ReservationForm from "./page/ReservationForm/ReservationForm.jsx";
+import QRMenu from "./page/QRMenu/QRMenu.jsx";
+import OrderTable from "./page/OrderTable/OrderTable.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
   {
     path: "/done",
     element: <Done />, // Страница завершения
+  },
+  {
+    path:"/qr/order",
+    element:<QRMenu/>
+  },
+  {
+    path:"/restaurant/:restaurantId/table/:tableId/order",
+    element:<OrderTable/>
   },
   {
     path: "/:cityId",

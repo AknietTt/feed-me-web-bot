@@ -1,0 +1,74 @@
+.modalContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .modalContent {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+  }
+  
+  .close {
+    cursor: pointer;
+    color: gray;
+  }
+  
+  .itemContainer {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .foodImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    margin-right: 10px;
+  }
+  
+  .itemInfo {
+    flex: 1;
+  }
+  
+  .foodName {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .quantityControl {
+    display: flex;
+    align-items: center;
+  }
+  
+  .quantityControl button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .quantityControl span {
+    margin: 0 10px;
+  }
+  
+  .quantityControl button:hover {
+    background-color: #e0e0e0;
+  }
+  

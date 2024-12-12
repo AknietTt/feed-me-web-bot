@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Order.module.css";
 import axios from "axios";
@@ -10,7 +10,7 @@ export default function OrderForm() {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
   const location = useLocation();
-  const { branchId, orderType } = location.state; // Получаем id филиала и тип заказа (доставка или самовывоз)
+  const { branchId, orderType, deliverySumm } = location.state; // Получаем id филиала, тип заказа и сумму доставки
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -23,6 +23,15 @@ export default function OrderForm() {
     apartmentOfficeNumber: "",
     comment: ""
   });
+
+  // Вычисляем общую сумму заказа
+  const totalSum = useMemo(() => {
+    const cartSum = cartItems.reduce(
+      (sum, item) => sum + item.food.price * item.count,
+      0
+    );
+    return cartSum + (orderType === "delivery" ? deliverySumm : 0);
+  }, [cartItems, deliverySumm, orderType]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,7 +50,7 @@ export default function OrderForm() {
     }));
 
     const requestBody = {
-      summa: 0, // Предполагается, что сумма рассчитывается отдельно
+      summa: totalSum, // Отправляем рассчитанную сумму
       address: orderType === "delivery" ? formData.address : "Самовывоз",
       nameCustomer: formData.name,
       phoneNumber: formData.phoneNumber,
@@ -70,7 +79,7 @@ export default function OrderForm() {
       });
 
       dispatch(cartActions.clean());
-      navigate("/done")
+      navigate("/done");
     } catch (error) {
       console.error("Error creating order:", error);
     }
@@ -79,6 +88,25 @@ export default function OrderForm() {
   return (
     <div className={styles.orderFormContainer}>
       <form onSubmit={handleSubmit}>
+        <div className={styles.cartItemsContainer}>
+          <h3>Ваш заказ</h3>
+          {cartItems.map((item) => (
+            <div key={item.food.id} className={styles.cartItem}>
+              <p>{item.food.name}</p>
+              <p>
+                {item.count} x {item.food.price} тг = {item.count * item.food.price} тг
+              </p>
+            </div>
+          ))}
+        </div>
+        {orderType === "delivery" && (
+          <div className={styles.deliverySum}>
+            <h3>Сумма доставки: {deliverySumm} тг</h3>
+          </div>
+        )}
+        <div className={styles.formGroup}>
+          <h3>Итоговая сумма заказа: {totalSum} тг</h3> {/* Вывод итоговой суммы на экран */}
+        </div>
         <div className={styles.formGroup}>
           <input
             type="text"
