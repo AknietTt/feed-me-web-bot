@@ -204,17 +204,18 @@ export default function OrderForm() {
         <h3>Telegram Data:</h3>
         <pre>{tgData}</pre>
       </div>
-        <button type="submit" className={styles.submitButton}>
-          Отправить
-        </button>
-      </form>
-
       {error && (
         <div className={styles.error}>
           <h3>Ошибка:</h3>
           <pre>{JSON.stringify(error, null, 2)}</pre>
         </div>
       )}
+        <button type="submit" className={styles.submitButton}>
+          Отправить
+        </button>
+      </form>
+
+     
 
       
     </div>
