@@ -14,8 +14,8 @@ export default function OrderForm() {
 
   // Telegram Mini App SDK
   const tg = window.Telegram?.WebApp;
-  const telegramChatId = tg?.initDataUnsafe?.user?.id || null;
-  const telegramUserId = tg?.initDataUnsafe?.chat?.id || null;
+  const telegramChatId = String(tg?.initDataUnsafe?.user?.id || "");
+  const telegramUserId = String(tg?.initDataUnsafe?.chat?.id || "");
 
   const [formData, setFormData] = useState({
     name: "",
