@@ -14,9 +14,8 @@ export default function OrderForm() {
 
   // Telegram Mini App SDK
   const tg = window.Telegram?.WebApp;
-  const telegramChatId = String(tg?.initDataUnsafe?.user?.id || "");
-  const telegramUserId = String(tg?.initDataUnsafe?.chat?.id || "");
-
+  const telegramUserId = String(tg?.initDataUnsafe?.user?.id || "");
+  
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -65,7 +64,6 @@ export default function OrderForm() {
       comment: formData.comment,
       apartmentOrOffice: orderType === "delivery" ? formData.apartmentOfficeNumber : "",
       floor: orderType === "delivery" ? formData.floor : "",
-      telegramChatId: telegramChatId,
       telegramUserId: telegramUserId,
       pickup: orderType === "pickup",
       branchId: branchId,
