@@ -200,6 +200,10 @@ export default function OrderForm() {
             placeholder="Комментарий"
           />
         </div>
+        <div className={styles.tgData}>
+        <h3>Telegram Data:</h3>
+        <pre>{tgData}</pre>
+      </div>
         <button type="submit" className={styles.submitButton}>
           Отправить
         </button>
@@ -212,10 +216,7 @@ export default function OrderForm() {
         </div>
       )}
 
-      <div className={styles.tgData}>
-        <h3>Telegram Data:</h3>
-        <pre>{tgData}</pre>
-      </div>
+      
     </div>
   );
 }
