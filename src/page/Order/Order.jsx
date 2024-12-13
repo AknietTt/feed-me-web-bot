@@ -15,7 +15,7 @@ export default function OrderForm() {
   // Telegram Mini App SDK
   const tg = window.Telegram?.WebApp;
   const telegramChatId = tg?.initDataUnsafe?.user?.id || null;
-  const telegramUserId = tg?.initDataUnsafe?.user?.username || null;
+  const telegramUserId = tg?.initDataUnsafe?.chat?.id || null;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -96,6 +96,8 @@ export default function OrderForm() {
       <form onSubmit={handleSubmit}>
         <div className={styles.cartItemsContainer}>
           <h3>Ваш заказ</h3>
+          {tg}
+
           {cartItems.map((item) => (
             <div key={item.food.id} className={styles.cartItem}>
               <p>{item.food.name}</p>
