@@ -3,15 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./Order.module.css";
 import axios from "axios";
 import { cartActions } from "../../store/cartSlice";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function OrderForm() {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
   const location = useLocation();
-  const { branchId, orderType, deliverySumm } = location.state; // Получаем id филиала, тип заказа и сумму доставки
+  const { branchId, orderType, deliverySumm } = location.state;
   const navigate = useNavigate();
+
+  // Telegram Mini App SDK
+  const tg = window.Telegram?.WebApp;
+  const telegramChatId = tg?.initDataUnsafe?.user?.id || null;
+  const telegramUserId = tg?.initDataUnsafe?.user?.username || null;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -24,7 +28,6 @@ export default function OrderForm() {
     comment: ""
   });
 
-  // Вычисляем общую сумму заказа
   const totalSum = useMemo(() => {
     const cartSum = cartItems.reduce(
       (sum, item) => sum + item.food.price * item.count,
@@ -50,14 +53,18 @@ export default function OrderForm() {
     }));
 
     const requestBody = {
-      summa: totalSum, // Отправляем рассчитанную сумму
+      summa: totalSum,
       address: orderType === "delivery" ? formData.address : "Самовывоз",
       nameCustomer: formData.name,
       phoneNumber: formData.phoneNumber,
       entrance: orderType === "delivery" ? formData.entrance : "",
       intercom: orderType === "delivery" ? formData.intercomCode : "",
       comment: formData.comment,
-      pickup: orderType === "pickup", // Определяем, является ли заказ самовывозом
+      apartmentOrOffice: orderType === "delivery" ? formData.apartmentOfficeNumber : "",
+      floor: orderType === "delivery" ? formData.floor : "",
+      telegramChatId: telegramChatId,
+      telegramUserId: telegramUserId,
+      pickup: orderType === "pickup",
       branchId: branchId,
       orderDetailDtos
     };
@@ -66,7 +73,6 @@ export default function OrderForm() {
       const response = await axios.post("https://localhost:7284/Order/create", requestBody);
       console.log(response.data);
 
-      // Очистить форму
       setFormData({
         name: "",
         address: "",
@@ -105,7 +111,7 @@ export default function OrderForm() {
           </div>
         )}
         <div className={styles.formGroup}>
-          <h3>Итоговая сумма заказа: {totalSum} тг</h3> {/* Вывод итоговой суммы на экран */}
+          <h3>Итоговая сумма заказа: {totalSum} тг</h3>
         </div>
         <div className={styles.formGroup}>
           <input
