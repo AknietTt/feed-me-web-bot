@@ -28,6 +28,9 @@ export default function OrderForm() {
     comment: ""
   });
 
+  const [error, setError] = useState(null); // Для отображения ошибок
+  const [tgData, setTgData] = useState(JSON.stringify(tg?.initDataUnsafe, null, 2)); // Для отображения tg данных
+
   const totalSum = useMemo(() => {
     const cartSum = cartItems.reduce(
       (sum, item) => sum + item.food.price * item.count,
@@ -88,6 +91,7 @@ export default function OrderForm() {
       navigate("/done");
     } catch (error) {
       console.error("Error creating order:", error);
+      setError(error.response?.data || "Произошла ошибка при отправке заказа.");
     }
   };
 
@@ -96,8 +100,6 @@ export default function OrderForm() {
       <form onSubmit={handleSubmit}>
         <div className={styles.cartItemsContainer}>
           <h3>Ваш заказ</h3>
-          
-
           {cartItems.map((item) => (
             <div key={item.food.id} className={styles.cartItem}>
               <p>{item.food.name}</p>
@@ -202,6 +204,18 @@ export default function OrderForm() {
           Отправить
         </button>
       </form>
+
+      {error && (
+        <div className={styles.error}>
+          <h3>Ошибка:</h3>
+          <pre>{JSON.stringify(error, null, 2)}</pre>
+        </div>
+      )}
+
+      <div className={styles.tgData}>
+        <h3>Telegram Data:</h3>
+        <pre>{tgData}</pre>
+      </div>
     </div>
   );
 }
