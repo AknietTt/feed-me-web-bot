@@ -96,7 +96,7 @@ export default function OrderForm() {
       <form onSubmit={handleSubmit}>
         <div className={styles.cartItemsContainer}>
           <h3>Ваш заказ</h3>
-          {tg}
+          
 
           {cartItems.map((item) => (
             <div key={item.food.id} className={styles.cartItem}>
