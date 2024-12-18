@@ -21,6 +21,7 @@ import TableList from "./page/TableList/TableList.jsx";
 import ReservationForm from "./page/ReservationForm/ReservationForm.jsx";
 import QRMenu from "./page/QRMenu/QRMenu.jsx";
 import OrderTable from "./page/OrderTable/OrderTable.jsx";
+import Scan from "./page/Scan/Scan.jsx";
 
 const router = createBrowserRouter([
   {
@@ -65,7 +66,7 @@ const router = createBrowserRouter([
       },
       {
         path: "qrmenu",
-        element: <Reservation />, // QR-меню
+        element: <Scan />, // QR-меню
       },
       {
         path: "branch/:restaurantId",
