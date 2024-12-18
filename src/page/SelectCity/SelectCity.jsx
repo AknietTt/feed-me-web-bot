@@ -10,7 +10,7 @@ function SelectCity() {
   const navigate =useNavigate();
 
   const getCities = async () => {
-    const result = await axios.get(`${HOST}/city/all`);
+    const result = await axios.get(`${HOST}/cities`);
     setSelectedCityId(result.data.value[0].id)
     setCities(result.data.value);
   }

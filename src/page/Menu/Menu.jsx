@@ -28,7 +28,7 @@ export default function Menu() {
   );
 
   const getFoods = async () => {
-    const res = await axios.get(`${HOST}/menu/food?restaurnatId=${id}`);
+    const res = await axios.get(`${HOST}/menus/foods?restaurantId=${id}`);
     setFood(res.data.value);
   };
 

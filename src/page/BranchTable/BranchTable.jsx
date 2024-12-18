@@ -11,7 +11,7 @@ export default function BranchTable() {
 
   const fetchBranchesWithTables = async () => {
     try {
-      const response = await axios.get(`${HOST}/branch/branches-with-tables/${restaurantId}/${cityId}`);
+      const response = await axios.get(`${HOST}/branches/tables/${restaurantId}/cities/${cityId}`);
       if (response.data.isSuccess) {
         setBranches(response.data.value);
       } else {

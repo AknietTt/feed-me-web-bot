@@ -12,7 +12,7 @@ export default function TableList() {
 
   const fetchTables = async () => {
     try {
-      const response = await axios.get(`${HOST}/branch/tables/${branchId}`);
+      const response = await axios.get(`${HOST}/branches/${branchId}/tables`);
       if (response.data.isSuccess) {
         setTables(response.data.value);
       } else {

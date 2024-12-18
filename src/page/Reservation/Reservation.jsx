@@ -11,7 +11,7 @@ export default function Reservation() {
 
   const fetchRestaurantsWithBooking = async () => {
     try {
-      const response = await axios.get(`${HOST}/restaurant/with-booking/${cityId}`);
+      const response = await axios.get(`${HOST}/restaurants/${cityId}/booking`);
       if (response.data.isSuccess) {
         setRestaurants(response.data.value);
       } else {

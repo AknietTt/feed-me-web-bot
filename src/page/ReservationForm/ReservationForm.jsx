@@ -25,7 +25,7 @@ export default function ReservationForm() {
     e.preventDefault();
     try {
       const payload = { ...formData, tableId }; // Добавляем tableId к данным формы
-      const response = await axios.post(`${HOST}/Reservation/create`, payload);
+      const response = await axios.post(`${HOST}/reservations`, payload);
       if (response.data.isSuccess) {
         alert("Бронь успешно оформлена!");
         navigate("/"); // Переход на главный экран

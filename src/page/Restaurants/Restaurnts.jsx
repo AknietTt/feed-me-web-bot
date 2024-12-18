@@ -14,7 +14,7 @@ export default function Restaurants() {
 
   const getRestaurantsWithDelivery = async (id) => {
     try {
-      const response = await axios.get(`${HOST}/restaurant/with-delivery/${id}`);
+      const response = await axios.get(`${HOST}/restaurants/${id}/delivery`);
       if (response.data.isSuccess) {
         setRestaurants(response.data.value);
       } else {

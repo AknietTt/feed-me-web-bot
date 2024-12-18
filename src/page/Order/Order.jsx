@@ -4,6 +4,7 @@ import styles from "./Order.module.css";
 import axios from "axios";
 import { cartActions } from "../../store/cartSlice";
 import { useLocation, useNavigate } from "react-router-dom";
+import { HOST } from "../../constants";
 
 export default function OrderForm() {
   const dispatch = useDispatch();
@@ -71,7 +72,7 @@ export default function OrderForm() {
     };
 
     try {
-      const response = await axios.post("https://localhost:7284/Order/create", requestBody);
+      const response = await axios.post(HOST+"/orders", requestBody);
       console.log(response.data);
 
       setFormData({
@@ -202,12 +203,6 @@ export default function OrderForm() {
         <h3>Telegram Data:</h3>
         <pre>{tgData}</pre>
       </div>
-      {error && (
-        <div className={styles.error}>
-          <h3>Ошибка:</h3>
-          <pre>{JSON.stringify(error, null, 2)}</pre>
-        </div>
-      )}
         <button type="submit" className={styles.submitButton}>
           Отправить
         </button>

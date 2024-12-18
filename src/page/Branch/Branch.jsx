@@ -14,7 +14,7 @@ export default function Branch() {
   const getBranchesByRestaurantId = async (id) => {
     try {
       const response = await axios.get(
-        HOST + `/branch/restaurant/${id}/${cityId}`
+        HOST + `/restaurants/${id}/cities/${cityId}/branches`
       );
       if (response.data.isSuccess) {
         setBranches(response.data.value);
