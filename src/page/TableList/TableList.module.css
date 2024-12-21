@@ -52,3 +52,19 @@
     margin: 5px 0;
   }
   
+  .datePickerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .datePicker {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+    text-align: center;
+  }
+  

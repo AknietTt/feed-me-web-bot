@@ -11,7 +11,9 @@ export default function BranchTable() {
 
   const fetchBranchesWithTables = async () => {
     try {
-      const response = await axios.get(`${HOST}/branches/tables/${restaurantId}/cities/${cityId}`);
+      const response = await axios.get(
+        `${HOST}/branches/tables/${restaurantId}/cities/${cityId}`
+      );
       if (response.data.isSuccess) {
         setBranches(response.data.value);
       } else {
@@ -26,8 +28,10 @@ export default function BranchTable() {
     fetchBranchesWithTables();
   }, [cityId, restaurantId]);
 
-  const handleBranchClick = (branchId) => {
-    navigate(`branch/tables/${branchId}`); // Переход на страницу таблиц по ID филиала
+  const handleBranchClick = (branchId, openingTime, closingTime) => {
+    navigate(
+      `branch/tables/${branchId}?openingTime=${openingTime}&closingTime=${closingTime}`
+    ); // Передаем время работы через query-параметры
   };
 
   return (
@@ -38,13 +42,20 @@ export default function BranchTable() {
           <div
             className={styles.card}
             key={branch.id}
-            onClick={() => handleBranchClick(branch.id)} // Добавляем обработчик клика
+            onClick={() =>
+              handleBranchClick(
+                branch.id,
+                branch.openingTime,
+                branch.closingTime
+              )
+            }
           >
             <h3 className={styles.branchName}>{branch.restaurant}</h3>
             <p className={styles.address}>Адрес: {branch.address}</p>
             <p className={styles.city}>Город: {branch.city.name}</p>
             <p className={styles.info}>
-              Доставка: {branch.delivery ? "Да" : "Нет"}, Самовывоз: {branch.pickup ? "Да" : "Нет"}
+              Доставка: {branch.delivery ? "Да" : "Нет"}, Самовывоз:{" "}
+              {branch.pickup ? "Да" : "Нет"}
             </p>
             <p className={styles.hours}>
               Время работы: {branch.openingTime} - {branch.closingTime}
