@@ -70,7 +70,7 @@ const CartModal = ({ isOpen, onClose, onClear , restaurantId , cityId}) => {
         <Button
           style={{
             position: "absolute",
-            bottom: "20px",
+            bottom: "50px",
             left: "50%",
             width: "90%",
             height: "50px",
@@ -88,7 +88,7 @@ const CartModal = ({ isOpen, onClose, onClear , restaurantId , cityId}) => {
               alignItems: "center",
             }}
           >
-            <span style={{ marginRight: "50%" }}>Перейти к оплате</span>
+            <span style={{ marginRight: "10%" }}>Перейти к оплате</span>
             <span>{`${cartTotal}₸`}</span>
           </div>
         </Button>

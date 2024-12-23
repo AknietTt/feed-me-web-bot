@@ -1,70 +1,124 @@
 .container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #f9f9f9;
-  }
-  
-  .title {
-    font-family: "Rubik", sans-serif;
-    font-size: 24px;
-    font-weight: 500;
-    color: #333333;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .tableList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 300px;
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  .tableNumber {
-    font-family: "Rubik", sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    color: #333333;
-    margin-bottom: 10px;
-  }
-  
-  .info {
-    font-family: "Rubik", sans-serif;
-    font-size: 14px;
-    color: #666666;
-    margin: 5px 0;
-  }
-  
-  .datePickerContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .datePicker {
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 200px;
-    text-align: center;
-  }
-  
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+}
+
+.title {
+  font-family: "Rubik", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #333333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.datePickerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.datePicker {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 250px;
+  text-align: center;
+}
+
+.tableList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.tableNumber {
+  font-family: "Rubik", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.iconRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  color: #666;
+}
+
+.features {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.features ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.features li {
+  list-style-type: disc;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+.info {
+  font-family: "Rubik", sans-serif;
+  font-size: 16px;
+  color: #555;
+  margin: 10px 0;
+}
+
+.buttonContainer {
+  text-align: center;
+}
+
+.bookButton {
+  background-color: #ff4757;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.bookButton:hover {
+  background-color: #e63946;
+}

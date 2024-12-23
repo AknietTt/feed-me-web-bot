@@ -1,62 +1,65 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;500;600&family=Playfair+Display&family=Poppins:wght@600&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap");
 
-h2{
-    font-family: Rubik, sans-serif;
-    font-weight: 500;
-    color: #333333;
-}
 .content {
   display: flex;
   justify-content: center;
-
+  flex-wrap: wrap;
+  padding: 20px;
 }
 
-.card {
-  border-radius: 8px;
-  background-color: #e4e2e2;
-  width: 344px;
-  margin-bottom: 10px;
-}
-.photo {
-  width: 344px;
-  height: 170px;
-  border-radius: 8px 8px 0 0;
-  object-fit: cover; 
-}
-.main-text {
-  font-size: 20px;
-  font-family: Rubik, sans-serif;
-  margin: 0;
-  font-weight: 400;
-  margin-top: 5px;
-  color: #333333;
-}
-.desc-text {
-  margin: 0;
-  font-family: Rubik, sans-serif;
-  font-size: 13px;
-  padding-bottom: 10px;
-  color: #333333;
+h2 {
+  font-family: "Rubik", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%;
 }
 
-input {
+.input {
+  width: 70%;
+  max-width: 500px;
+  margin: 0 auto 20px auto;
   padding: 10px 15px;
   border-radius: 25px;
   border: 2px solid #00aaff;
   outline: none;
-  width: 90%;
-  margin-bottom: 20px;
   font-size: 16px;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-input:focus {
+.input:focus {
   border-color: #0077cc;
   box-shadow: 0 4px 10px rgba(0, 119, 204, 0.2);
 }
-.icons-container {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Адаптивность для телефонов */
+@media (max-width: 768px) {
+  .input {
+    width: 90%;
+    font-size: 14px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .gridContainer {
+    grid-template-columns: 1fr; /* Одна колонка на маленьких экранах */
+  }
+}
+
+@media (max-width: 480px) {
+
+
 }

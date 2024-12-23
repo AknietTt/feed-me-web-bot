@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Haeder from "../../components/Header/Haeder";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import FoodCard from "../../components/FoodCard/FoodCard";
@@ -14,12 +14,8 @@ export default function Menu() {
   const [foods, setFood] = useState([]);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const { cityId } = useParams();
-
   const location = useLocation();
-  const { imageUrl } = location.state;
-  const { name } = location.state;
-  const { desc } = location.state;
-  const { id } = location.state;
+  const { imageUrl, name, desc, id } = location.state;
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const cartTotal = cart.items.reduce(
@@ -44,9 +40,9 @@ export default function Menu() {
     setIsCartModalOpen(false);
   };
 
-  const handleClearCartModal = ()=>{
-    dispatch(cartActions.clean())
-  }
+  const handleClearCartModal = () => {
+    dispatch(cartActions.clean());
+  };
 
   useEffect(() => {
     getFoods();
@@ -58,7 +54,7 @@ export default function Menu() {
       <div style={{ margin: 10 }}>
         {foods.map((category) => (
           <div key={category.categoryName}>
-            <h2>{category.categoryName}</h2>
+            <h2 className={styles.categoryTitle}>{category.categoryName}</h2>
             <div className={styles.foodCardContainer}>
               {category.foods.map((food) => (
                 <FoodCard
@@ -77,15 +73,21 @@ export default function Menu() {
         <div className={styles.fixedButtonContainer}>
           {cart.items.length > 0 && (
             <Button
-              style={{ width: "100%", marginLeft: "5px", marginRight: "5px" }}
+              className={styles.fixedButton}
               onClick={handleCartButtonClick}
             >
-              {`Корзина (Олпатить) ${cartTotal} ₸`}
+              {`${cartTotal} ₸`}
             </Button>
-          )}{" "}
+          )}
         </div>
       </div>
-      <CartModal isOpen={isCartModalOpen} onClose={handleCloseCartModal} onClear={handleClearCartModal} restaurantId={id} cityId={cityId} />
+      <CartModal
+        isOpen={isCartModalOpen}
+        onClose={handleCloseCartModal}
+        onClear={handleClearCartModal}
+        restaurantId={id}
+        cityId={cityId}
+      />
       <div style={{ margin: "150px" }}></div>
     </div>
   );

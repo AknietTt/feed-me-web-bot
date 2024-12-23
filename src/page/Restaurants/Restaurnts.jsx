@@ -1,14 +1,14 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import { HOST } from "../../constants";
 import styles from "./Restaurants.module.css";
-import { Truck, ShoppingBag, Calendar, DollarSign } from "lucide-react"; // Импорт иконок
+import RestaurantCard from "../../components/RestaurantCard/RestaurantCard";
 
 export default function Restaurants() {
   const [restaurants, setRestaurants] = useState([]);
-  const [searchText, setSearchText] = useState(""); // Для хранения текста поиска
-  const [debounceTimer, setDebounceTimer] = useState(null); // Для управления таймером задержки
+  const [searchText, setSearchText] = useState("");
+  const [debounceTimer, setDebounceTimer] = useState(null);
   const { cityId } = useParams();
   const navigate = useNavigate();
 
@@ -16,7 +16,12 @@ export default function Restaurants() {
     try {
       const response = await axios.get(`${HOST}/restaurants/${id}/delivery`);
       if (response.data.isSuccess) {
-        setRestaurants(response.data.value);
+        setRestaurants(
+          response.data.value.map((restaurant) => ({
+            ...restaurant,
+            rating: 10,
+          }))
+        );
       } else {
         console.error("Ошибка при загрузке ресторанов:", response.data.error);
       }
@@ -28,7 +33,12 @@ export default function Restaurants() {
   const searchRestaurants = async (query) => {
     try {
       const response = await axios.get(`${HOST}/restaurant/search/${encodeURIComponent(query)}`);
-      setRestaurants(response.data.value); // Обновляем рестораны с результатами поиска
+      setRestaurants(
+        response.data.value.map((restaurant) => ({
+          ...restaurant,
+          rating: 10,
+        }))
+      );
     } catch (error) {
       console.error("Ошибка при поиске ресторанов:", error);
     }
@@ -38,17 +48,15 @@ export default function Restaurants() {
     const text = e.target.value;
     setSearchText(text);
 
-    // Сбрасываем предыдущий таймер
     if (debounceTimer) {
       clearTimeout(debounceTimer);
     }
 
-    // Устанавливаем новый таймер с задержкой 2 секунды
     const newTimer = setTimeout(() => {
       if (text.trim()) {
-        searchRestaurants(text); // Выполняем запрос с текущим текстом поиска
+        searchRestaurants(text);
       } else {
-        getRestaurantsWithDelivery(cityId); // Если поле пустое, загружаем рестораны с доставкой
+        getRestaurantsWithDelivery(cityId);
       }
     }, 2000);
 
@@ -60,69 +68,33 @@ export default function Restaurants() {
   }, [cityId]);
 
   return (
-    <div className={styles["content"]}>
+    <div className={styles.content}>
       <div>
         <h2>Рестораны с доставкой</h2>
         <input
-          className={styles["input"]}
+          className={styles.input}
           value={searchText}
-          onChange={handleSearchInput} // Обновляем текст поиска с задержкой
+          onChange={handleSearchInput}
           placeholder="Поиск ресторанов"
         />
-        {restaurants.map((restaurant) => (
-          <div
-            className={styles["card"]}
-            key={restaurant.id}
-            onClick={() =>
-              navigate(`/${cityId}/menu/${restaurant.id}`, {
-                state: {
-                  imageUrl: restaurant.photo,
-                  name: restaurant.name,
-                  desc: restaurant.description,
-                  id: restaurant.id,
-                },
-              })
-            }
-          >
-            <div>
-              <img
-                src={restaurant.photo}
-                alt="фото ресторана"
-                className={styles["photo"]}
-              />
-            </div>
-            <div style={{ marginLeft: 5 }}>
-              <p className={styles["main-text"]}>{restaurant.name}</p>
-              <p className={styles["desc-text"]}>{restaurant.description}</p>
-              <div className={styles["icons-container"]}>
-                {restaurant.delivery && (
-                  <Truck
-                    size={20}
-                    color="#2ecc71" // Зеленый цвет для доставки
-                  />
-                )}
-                {restaurant.pickup && (
-                  <ShoppingBag
-                    size={20}
-                    color="#2ecc71" // Зеленый цвет для самовывоза
-                  />
-                )}
-                {restaurant.booking && (
-                  <Calendar
-                    size={20}
-                    color="#2ecc71" // Зеленый цвет для брони
-                  />
-                )}
-                {restaurant.isPaidDelivery && (
-                  <DollarSign
-                    size={20}
-                    color="#ffcc00" // Желтый цвет для платной доставки
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
+        <div className={styles.gridContainer}>
+          {restaurants.map((restaurant) => (
+            <RestaurantCard
+              key={restaurant.id}
+              restaurant={restaurant}
+              onClick={() =>
+                navigate(`/${cityId}/menu/${restaurant.id}`, {
+                  state: {
+                    imageUrl: restaurant.photo,
+                    name: restaurant.name,
+                    desc: restaurant.description,
+                    id: restaurant.id,
+                  },
+                })
+              }
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

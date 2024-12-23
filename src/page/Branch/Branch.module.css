@@ -1,103 +1,116 @@
+/* Container styles */
 .branch-container {
-  padding: 20px;
   max-width: 1200px;
-  margin: 0 auto;
-  font-family: "Roboto", sans-serif;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
 .branch-container h2 {
   text-align: center;
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 30px;
+  color: #2d3748;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
 }
 
+/* Branch list grid */
 .branch-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
 }
 
+/* Branch card styles */
 .branch-card {
-  background: linear-gradient(145deg, #ffffff, #f0f0f0);
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1),
-    -4px -4px 10px rgba(255, 255, 255, 1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(255, 71, 87, 0.1),
+              0 2px 4px -1px rgba(255, 71, 87, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .branch-card:hover {
-  transform: scale(1.03);
-  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.15),
-    -4px -4px 20px rgba(255, 255, 255, 1);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(255, 71, 87, 0.15),
+              0 4px 6px -2px rgba(255, 71, 87, 0.1);
 }
 
-h3 {
-  font-size: 20px;
-  color: #333;
-  margin-bottom: 10px;
-  font-weight: bold;
+.branch-card h3 {
+  color: #1a202c;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #bababa;
 }
 
-p {
-  font-size: 16px;
-  color: #666;
-  margin: 5px 0;
+.branch-card p {
+  color: #4a5568;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
+/* Order buttons container */
 .order-buttons {
   display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
+/* Button base styles */
 .pickup-button,
 .delivery-button {
   flex: 1;
-  margin: 5px;
-  background-color: #007bff;
-  border: none;
-  border-radius: 8px;
-  color: #fff;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-size: 16px;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
   font-weight: 500;
-  text-transform: uppercase;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
 }
 
+/* Pickup button specific styles */
 .pickup-button {
-  background-color: #28a745; /* Зеленый цвет для самовывоза */
+  background-color: #fff5f5;
+  color: #FF4757;
+  border: 1px solid #FF4757;
 }
 
+.pickup-button:hover {
+  background-color: #ffe5e5;
+}
+
+/* Delivery button specific styles */
 .delivery-button {
-  background-color: #ff4757; /* Красный цвет для доставки */
+  background-color: #FF4757;
+  color: white;
 }
 
-.pickup-button:hover,
 .delivery-button:hover {
-  background-color: #555; /* Темный оттенок при наведении */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  background-color: #ff3344;
 }
 
-@media (max-width: 768px) {
+/* Responsive adjustments */
+@media (max-width: 640px) {
   .branch-container {
-    padding: 15px;
+    margin: 1rem auto;
   }
 
-  h3 {
-    font-size: 18px;
+  .branch-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
-  p {
-    font-size: 14px;
+  .branch-list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
-  .pickup-button,
-  .delivery-button {
-    font-size: 14px;
-    padding: 8px 10px;
+  .order-buttons {
+    flex-direction: column;
   }
 }

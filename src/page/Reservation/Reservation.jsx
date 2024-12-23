@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import styles from "./Reservation.module.css"; // Импорт стилей
+import styles from "./Reservation.module.css";
 import { HOST } from "../../constants";
+import RestaurantCard from "../../components/RestaurantCard/RestaurantCard";
 
 export default function Reservation() {
   const [restaurants, setRestaurants] = useState([]);
-  const { cityId } = useParams(); // Получаем cityId из маршрута
-  const navigate = useNavigate(); // Навигация для переходов
+  const { cityId } = useParams();
+  const navigate = useNavigate();
 
   const fetchRestaurantsWithBooking = async () => {
     try {
@@ -27,7 +28,7 @@ export default function Reservation() {
   }, [cityId]);
 
   const handleRestaurantClick = (restaurantId) => {
-    navigate(`/${cityId}/branches-with-tables/${restaurantId}`); // Переход на страницу BranchTable
+    navigate(`/${cityId}/branches-with-tables/${restaurantId}`);
   };
 
   return (
@@ -35,24 +36,11 @@ export default function Reservation() {
       <h2 className={styles.title}>Рестораны для бронирования</h2>
       <div className={styles.restaurantList}>
         {restaurants.map((restaurant) => (
-          <div
-            className={styles.card}
+          <RestaurantCard
             key={restaurant.id}
-            onClick={() => handleRestaurantClick(restaurant.id)} // Переход по клику
-          >
-            <img
-              src={restaurant.photo}
-              alt={restaurant.name}
-              className={styles.image}
-            />
-            <div className={styles.cardContent}>
-              <h3 className={styles.restaurantName}>{restaurant.name}</h3>
-              <p className={styles.description}>{restaurant.description}</p>
-              {!restaurant.isOpen && (
-                <p className={styles.closed}>Ресторан закрыт</p>
-              )}
-            </div>
-          </div>
+            restaurant={restaurant}
+            onClick={() => handleRestaurantClick(restaurant.id)}
+          />
         ))}
       </div>
     </div>

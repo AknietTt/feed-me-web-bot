@@ -13,23 +13,20 @@ export default function OrderForm() {
   const { branchId, orderType, deliverySumm } = location.state;
   const navigate = useNavigate();
 
-  // Telegram Mini App SDK
   const tg = window.Telegram?.WebApp;
   const telegramUserId = String(tg?.initDataUnsafe?.user?.id || "");
-  
-  const [formData, setFormData] = useState({
-    name: "",
-    address: "",
-    phoneNumber: "",
-    entrance: "",
-    intercomCode: "",
-    floor: "",
-    apartmentOfficeNumber: "",
-    comment: ""
-  });
+  const telegramChatId = String(tg?.initDataUnsafe?.chat?.id || "");
 
-  const [error, setError] = useState(null); // Для отображения ошибок
-  const [tgData, setTgData] = useState(JSON.stringify(tg?.initDataUnsafe, null, 2)); // Для отображения tg данных
+  const [formData, setFormData] = useState({
+    nameCustomer: "",
+    phoneNumber: "",
+    address: "",
+    entrance: "",
+    intercom: "",
+    apartmentOrOffice: "",
+    floor: "",
+    comment: "",
+  });
 
   const totalSum = useMemo(() => {
     const cartSum = cartItems.reduce(
@@ -43,7 +40,7 @@ export default function OrderForm() {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -52,77 +49,86 @@ export default function OrderForm() {
 
     const orderDetailDtos = cartItems.map((item) => ({
       foodId: item.food.id,
-      count: item.count
+      count: item.count,
     }));
 
     const requestBody = {
       summa: totalSum,
-      address: orderType === "delivery" ? formData.address : "Самовывоз",
-      nameCustomer: formData.name,
+      nameCustomer: formData.nameCustomer,
       phoneNumber: formData.phoneNumber,
+      address: orderType === "delivery" ? formData.address : "Самовывоз",
       entrance: orderType === "delivery" ? formData.entrance : "",
-      intercom: orderType === "delivery" ? formData.intercomCode : "",
-      comment: formData.comment,
-      apartmentOrOffice: orderType === "delivery" ? formData.apartmentOfficeNumber : "",
+      intercom: orderType === "delivery" ? formData.intercom : "",
+      apartmentOrOffice:
+        orderType === "delivery" ? formData.apartmentOrOffice : "",
       floor: orderType === "delivery" ? formData.floor : "",
+      comment: formData.comment,
+      telegramChatId: telegramChatId,
       telegramUserId: telegramUserId,
       pickup: orderType === "pickup",
       branchId: branchId,
-      orderDetailDtos
+      orderDetailDtos,
     };
 
     try {
-      const response = await axios.post(HOST+"/orders", requestBody);
+      const response = await axios.post(`${HOST}/orders`, requestBody);
       console.log(response.data);
 
       setFormData({
-        name: "",
-        address: "",
+        nameCustomer: "",
         phoneNumber: "",
+        address: "",
         entrance: "",
-        intercomCode: "",
+        intercom: "",
+        apartmentOrOffice: "",
         floor: "",
-        apartmentOfficeNumber: "",
-        comment: ""
+        comment: "",
       });
 
       dispatch(cartActions.clean());
       navigate("/done");
     } catch (error) {
       console.error("Error creating order:", error);
-      setError(error.response?.data || "Произошла ошибка при отправке заказа.");
+      alert("Произошла ошибка при создании заказа.");
     }
   };
 
   return (
-    <div className={styles.orderFormContainer}>
-      <form onSubmit={handleSubmit}>
-        <div className={styles.cartItemsContainer}>
-          <h3>Ваш заказ</h3>
+    <div className={styles.orderContainer}>
+      <div className={styles.checkHeader}>
+        <h2 className={styles.checkTitle}>Чек заказа</h2>
+      </div>
+      <div className={styles.orderDetails}>
+        <div className={styles.cartItems}>
           {cartItems.map((item) => (
-            <div key={item.food.id} className={styles.cartItem}>
-              <p>{item.food.name}</p>
-              <p>
-                {item.count} x {item.food.price} тг = {item.count * item.food.price} тг
-              </p>
+            <div key={item.food.id} className={styles.itemRow}>
+              <span>{item.food.name}</span>
+              <span>
+                {item.count} x {item.food.price}₸
+              </span>
             </div>
           ))}
         </div>
         {orderType === "delivery" && (
-          <div className={styles.deliverySum}>
-            <h3>Сумма доставки: {deliverySumm} тг</h3>
+          <div className={styles.detailRow}>
+            <span>Доставка:</span>
+            <span>{deliverySumm}₸</span>
           </div>
         )}
-        <div className={styles.formGroup}>
-          <h3>Итоговая сумма заказа: {totalSum} тг</h3>
+        <div className={styles.totalRow}>
+          <span>Итог:</span>
+          <span>{totalSum}₸</span>
         </div>
-        <div className={styles.formGroup}>
+      </div>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.inputGroup}>
+          <label htmlFor="nameCustomer">Имя</label>
           <input
             type="text"
-            id="name"
-            name="name"
-            placeholder="Имя"
-            value={formData.name}
+            id="nameCustomer"
+            name="nameCustomer"
+            placeholder="Ваше имя"
+            value={formData.nameCustomer}
             onChange={handleChange}
             required
             className={styles.input}
@@ -130,87 +136,98 @@ export default function OrderForm() {
         </div>
         {orderType === "delivery" && (
           <>
-            <div className={styles.formGroup}>
+            <div className={styles.inputGroup}>
+              <label htmlFor="address">Адрес</label>
               <input
                 type="text"
                 id="address"
                 name="address"
-                placeholder="Адрес"
+                placeholder="Введите адрес"
                 value={formData.address}
                 onChange={handleChange}
                 required
                 className={styles.input}
               />
             </div>
-            <div className={styles.formGroup}>
+            <div className={styles.inputGroup}>
+              <label htmlFor="entrance">Подъезд</label>
               <input
                 type="text"
                 id="entrance"
                 name="entrance"
+                placeholder="Номер подъезда"
                 value={formData.entrance}
                 onChange={handleChange}
                 className={styles.input}
-                placeholder="Подъезд"
               />
             </div>
-            <div className={styles.formGroup}>
+            <div className={styles.inputGroup}>
+              <label htmlFor="intercom">Код домофона</label>
               <input
                 type="text"
-                id="intercomCode"
-                name="intercomCode"
-                value={formData.intercomCode}
-                onChange={handleChange}
-                className={styles.input}
+                id="intercom"
+                name="intercom"
                 placeholder="Код домофона"
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <input
-                type="text"
-                id="apartmentOfficeNumber"
-                name="apartmentOfficeNumber"
-                value={formData.apartmentOfficeNumber}
+                value={formData.intercom}
                 onChange={handleChange}
                 className={styles.input}
-                placeholder="Квартира/Офис"
+              />
+            </div>
+            <div className={styles.inputGroup}>
+              <label htmlFor="apartmentOrOffice">Квартира/Офис</label>
+              <input
+                type="text"
+                id="apartmentOrOffice"
+                name="apartmentOrOffice"
+                placeholder="Номер квартиры/офиса"
+                value={formData.apartmentOrOffice}
+                onChange={handleChange}
+                className={styles.input}
+              />
+            </div>
+            <div className={styles.inputGroup}>
+              <label htmlFor="floor">Этаж</label>
+              <input
+                type="text"
+                id="floor"
+                name="floor"
+                placeholder="Этаж"
+                value={formData.floor}
+                onChange={handleChange}
+                className={styles.input}
               />
             </div>
           </>
         )}
-        <div className={styles.formGroup}>
+        <div className={styles.inputGroup}>
+          <label htmlFor="phoneNumber">Телефон</label>
           <input
             type="tel"
             id="phoneNumber"
             name="phoneNumber"
-            placeholder="Телефон получателя"
+            placeholder="Ваш телефон"
             value={formData.phoneNumber}
             onChange={handleChange}
             required
             className={styles.input}
           />
         </div>
-        <div className={styles.formGroup}>
+        <div className={styles.inputGroup}>
+          <label htmlFor="comment">Комментарий</label>
           <textarea
             id="comment"
             name="comment"
+            placeholder="Ваш комментарий"
             value={formData.comment}
             onChange={handleChange}
             className={styles.textarea}
-            placeholder="Комментарий"
-          />
+          ></textarea>
         </div>
-        <div className={styles.tgData}>
-        <h3>Telegram Data:</h3>
-        <pre>{tgData}</pre>
-      </div>
         <button type="submit" className={styles.submitButton}>
-          Отправить
+          Подтвердить
         </button>
+        <div style={{ marginTop: "200px" }}></div>
       </form>
-
-     
-
-      
     </div>
   );
 }

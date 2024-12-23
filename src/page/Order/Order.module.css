@@ -1,41 +1,157 @@
-.orderFormContainer {
-    background-color: white; /* Белый фон */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень */
+.orderContainer {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 400px;
+  margin: 20px auto;
+  font-family: "Rubik", sans-serif;
+}
+
+.checkHeader {
+  text-align: center;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.checkTitle {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.orderDetails {
+  padding: 15px 0;
+  border-bottom: 1px dashed #ddd;
+  margin-bottom: 15px;
+}
+
+.cartItems {
+  margin-bottom: 15px;
+}
+
+.itemRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  border-top: 1px solid #ddd;
+  margin-top: 15px;
+}
+
+.form {
+  padding-top: 15px;
+}
+
+.inputGroup {
+  margin-bottom: 15px;
+}
+
+.inputGroup label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: #ff4757;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 71, 87, 0.5);
+}
+
+.submitButton {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #ff4757;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.submitButton:hover {
+  background-color: #e63946;
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+  .orderContainer {
+    padding: 15px;
   }
-  
-  .formGroup {
-    margin-bottom: 15px;
+
+  .checkTitle {
+    font-size: 18px;
   }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
+
+  .itemRow,
+  .detailRow {
+    font-size: 12px;
   }
-  
-  .input,
-  .textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+
+  .totalRow {
+    font-size: 14px;
   }
-  
+
   .submitButton {
-    background-color: #333333; /* Черный цвет кнопки */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    height: 50px;
-    margin-bottom: 200px;
-    transition: background-color 0.3s ease;
+    font-size: 14px;
   }
-  
-  .submitButton:hover {
-    background-color: #333; /* Темно-серый при наведении */
-  }
-  
+}
+
+.textarea {
+  width: 90%; /* Заполнить всю доступную ширину */
+  padding: 12px; /* Внутренние отступы */
+  border-radius: 8px; /* Закругленные углы */
+  border: 1px solid #dcdcdc; /* Лёгкая граница */
+  background-color: #f9f9f9; /* Светлый фон */
+  font-size: 14px; /* Размер текста */
+  font-family: "Rubik", sans-serif; /* Шрифт */
+  color: #333; /* Цвет текста */
+  resize: none; /* Отключить возможность изменения размера */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Плавные анимации */
+}
+
+.textarea:focus {
+  outline: none; /* Убрать стандартное выделение */
+  border-color: #ff4757; /* Цвет границы при фокусе */
+  box-shadow: 0 0 8px rgba(255, 71, 87, 0.2); /* Тень вокруг при фокусе */
+}
+
+.textarea::placeholder {
+  color: #aaa; /* Цвет для плейсхолдера */
+  font-style: italic; /* Курсив для плейсхолдера */
+}
+

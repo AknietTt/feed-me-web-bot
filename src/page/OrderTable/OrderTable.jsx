@@ -31,7 +31,7 @@ export default function OrderTable() {
     };
 
     try {
-      const response = await axios.post('https://localhost:7284/order-table/create', payload);
+      const response = await axios.post('https://localhost:7284/order-tables', payload);
       setMessage('Заказ успешно создан!');
     } catch (error) {
       console.error('Ошибка создания заказа:', error);

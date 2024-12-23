@@ -1,54 +1,137 @@
 .container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #f9f9f9;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+}
+
+.title {
+  font-family: "Rubik", sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.branchList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+.branchName {
+  font-family: "Rubik", sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: #2d3436;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.address,
+.city,
+.info,
+.hours {
+  font-family: "Rubik", sans-serif;
+  font-size: 16px;
+  color: #636e72;
+  margin: 5px 0;
+  text-align: left;
+}
+
+.hours {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  font-size: 24px;
+  color: #3498db;
+  margin-bottom: 15px;
+}
+
+.reserveButton {
+  background-color: #ff4757;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 15px;
+  align-self: flex-start; /* Выравнивание кнопки влево */
+}
+
+.reserveButton:hover {
+  background-color: #e63946;
+  transform: translateY(-2px);
+}
+
+.reserveButton:active {
+  transform: translateY(1px);
+}
+
+.card:hover .reserveButton {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
   }
-  
-  .title {
-    font-family: "Rubik", sans-serif;
-    font-size: 24px;
-    font-weight: 500;
-    color: #333333;
-    text-align: center;
-    margin-bottom: 20px;
+  50% {
+    transform: scale(1.05);
   }
-  
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
   .branchList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    grid-template-columns: 1fr;
   }
-  
+
   .card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 300px;
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
+    padding: 15px;
   }
-  
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
-  
+
   .branchName {
-    font-family: "Rubik", sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    color: #333333;
-    margin-bottom: 10px;
+    font-size: 20px;
   }
-  
-  .address, .city, .info, .hours {
-    font-family: "Rubik", sans-serif;
+
+  .address,
+  .city,
+  .info,
+  .hours {
     font-size: 14px;
-    color: #666666;
-    margin: 5px 0;
   }
-  
+
+  .reserveButton {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}

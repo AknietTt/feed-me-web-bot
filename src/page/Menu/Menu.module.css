@@ -1,23 +1,52 @@
 .foodCardContainer {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-columns: auto;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Адаптивная сетка */
   gap: 20px;
 }
+
+.categoryTitle {
+  margin: 20px 0 10px 0; /* Отступы сверху и снизу */
+  font-size: 20px; /* Размер шрифта */
+  font-weight: 600; /* Жирный текст */
+  color: #333333; /* Темный цвет текста */
+  text-align: left; /* Текст прижат к левому краю */
+}
+
 .fixedButtonContainer {
   position: fixed;
   bottom: 20px;
-  left: 50%; /* Разместить кнопку по середине горизонтально */
-  transform: translateX(-50%); /* Сдвиг кнопки на половину её ширины влево */
+  left: 50%;
+  transform: translateX(-15%);
+  padding-bottom: 50px;
   z-index: 9;
+  width: 90%; /* Адаптивная ширина */
+  max-width: 400px; /* Максимальная ширина кнопки */
 }
 
 .fixedButton {
+  width: 100%;
   padding: 10px 20px;
-  background-color: #007bff;
   color: #fff;
+  font-size: 16px;
+  font-weight: 600;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 
+
+/* Адаптивность для телефонов */
+@media (max-width: 768px) {
+  .foodCardContainer {
+    grid-template-columns: 1fr; /* Одна колонка на маленьких экранах */
+  }
+
+  .fixedButtonContainer {
+    width: 95%; /* Чуть шире для телефонов */
+  }
+
+  .fixedButton {
+    font-size: 14px; /* Уменьшение текста для телефонов */
+  }
+}

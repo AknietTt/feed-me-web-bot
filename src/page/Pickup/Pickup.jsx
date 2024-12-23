@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { HOST } from "../../constants";
 import styles from "../Restaurants/Restaurants.module.css";
-import { ShoppingBag, Calendar, DollarSign } from "lucide-react"; // Импорт иконок
+import RestaurantCard from "../../components/RestaurantCard/RestaurantCard";
 
 export default function Pickup() {
   const [restaurants, setRestaurants] = useState([]); // Состояние для ресторанов
@@ -63,63 +63,33 @@ export default function Pickup() {
   }, [cityId]);
 
   return (
-    <div className={styles["content"]}>
+    <div className={styles.content}>
       <div>
         <h2>Рестораны с самовывозом</h2>
         <input
-          className={styles["input"]}
+          className={styles.input}
           value={searchText}
           onChange={handleSearchInput} // Поиск с задержкой
           placeholder="Поиск ресторанов"
         />
-        {restaurants.map((restaurant) => (
-          <div
-            className={styles["card"]}
-            key={restaurant.id}
-            onClick={() =>
-              navigate(`/${cityId}/menu/${restaurant.id}`, {
-                state: {
-                  imageUrl: restaurant.photo,
-                  name: restaurant.name,
-                  desc: restaurant.description,
-                  id: restaurant.id,
-                },
-              })
-            }
-          >
-            <div>
-              <img
-                src={restaurant.photo}
-                alt="фото ресторана"
-                className={styles["photo"]}
-              />
-            </div>
-            <div style={{ marginLeft: 5 }}>
-              <p className={styles["main-text"]}>{restaurant.name}</p>
-              <p className={styles["desc-text"]}>{restaurant.description}</p>
-              <div className={styles["icons-container"]}>
-                {restaurant.pickup && (
-                  <ShoppingBag
-                    size={20}
-                    color="#2ecc71" // Зеленый цвет для самовывоза
-                  />
-                )}
-                {restaurant.booking && (
-                  <Calendar
-                    size={20}
-                    color="#2ecc71" // Зеленый цвет для брони
-                  />
-                )}
-                {restaurant.isPaidDelivery && (
-                  <DollarSign
-                    size={20}
-                    color="#ffcc00" // Желтый цвет для платной доставки
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
+        <div className={styles.gridContainer}>
+          {restaurants.map((restaurant) => (
+            <RestaurantCard
+              key={restaurant.id}
+              restaurant={restaurant}
+              onClick={() =>
+                navigate(`/${cityId}/menu/${restaurant.id}`, {
+                  state: {
+                    imageUrl: restaurant.photo,
+                    name: restaurant.name,
+                    desc: restaurant.description,
+                    id: restaurant.id,
+                  },
+                })
+              }
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

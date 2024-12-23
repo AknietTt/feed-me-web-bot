@@ -27,7 +27,7 @@ const QRMenu = () => {
 
   const getFoods = async () => {
     try {
-      const res = await axios.get(`${HOST}/menu/food?restaurnatId=${restaurantId}`);
+      const res = await axios.get(`${HOST}/menus/foods?restaurantId=${restaurantId}`);
       console.log(res);
       
       setFoods(res.data.value);
