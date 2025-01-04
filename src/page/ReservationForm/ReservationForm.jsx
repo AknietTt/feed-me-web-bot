@@ -14,13 +14,14 @@ export default function ReservationForm() {
   const openingTime = queryParams.get("openingTime");
   const closingTime = queryParams.get("closingTime");
 
-  
   const [formData, setFormData] = useState({
     reservationDate: selectedDate || "",
     reservationTime: "",
     numberOfGuests: 1,
     userName: "",
     phoneNumber: "",
+    telegramChatId: null,
+    telegramUserId: null,
   });
 
   useEffect(() => {
@@ -59,7 +60,11 @@ export default function ReservationForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const payload = { ...formData, tableId };
+      const payload = {
+        ...formData,
+        reservationTime: `${formData.reservationTime}:00`,
+        tableId,
+      };
       const response = await axios.post(`${HOST}/reservations`, payload);
       if (response.data.isSuccess) {
         alert("Бронь успешно оформлена!");
@@ -145,3 +150,4 @@ export default function ReservationForm() {
     </div>
   );
 }
+  
