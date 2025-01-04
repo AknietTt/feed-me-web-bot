@@ -66,15 +66,13 @@ const CartModal = ({ isOpen, onClose, onClear , restaurantId , cityId}) => {
             </div>
           </div>
         ))}
-        <div style={{ paddingBottom: "200px" }}></div>
+        <div style={{ paddingBottom: "500px"   }}></div>
         <Button
           style={{
-            position: "absolute",
+            position: "sticky",
             bottom: "50px",
-            left: "50%",
-            width: "90%",
+            width: "100%",
             height: "50px",
-            transform: "translateX(-50%)",
           }}
           disable={cart.items.length === 0}
           onClick={() => {

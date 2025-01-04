@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../store/cartSlice";
 import Button from "../../components/Button/Button";
 import CartModal from "../../components/CartModal/CartModal";
+import FoodModal from "../../components/FoodModal/FoodModal";
 
 export default function Menu() {
   const [foods, setFood] = useState([]);
@@ -22,6 +23,7 @@ export default function Menu() {
     (total, item) => total + item.food.price * item.count,
     0
   );
+  const [selectedFood, setSelectedFood] = useState(null);
 
   const getFoods = async () => {
     const res = await axios.get(`${HOST}/menus/foods?restaurantId=${id}`);
@@ -44,6 +46,10 @@ export default function Menu() {
     dispatch(cartActions.clean());
   };
 
+  const handleFoodClick = (food) => {    
+    setSelectedFood(food); // Устанавливает выбранную еду
+  };
+  
   useEffect(() => {
     getFoods();
   }, []);
@@ -65,6 +71,7 @@ export default function Menu() {
                   price={food.price}
                   desc={food.description}
                   addToCart={addToCart}
+                  onClick={() => handleFoodClick(food)}
                 />
               ))}
             </div>
@@ -88,6 +95,11 @@ export default function Menu() {
         restaurantId={id}
         cityId={cityId}
       />
+      <FoodModal
+      food={selectedFood}
+      onClose={() => setSelectedFood(null)} // Закрыть модальное окно
+    />
+
       <div style={{ margin: "150px" }}></div>
     </div>
   );

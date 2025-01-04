@@ -4,16 +4,17 @@ import styles from "./FoodCard.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { cartActions } from "../../store/cartSlice";
 
-export default function FoodCard({ id, photo, name, price, desc }) {
+export default function FoodCard({ id, photo, name, price, desc, onClick }) {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
-  const addToCart = () => {
+  const addToCart = (event) => {
+    event.stopPropagation(); // Предотвращаем всплытие события
     dispatch(cartActions.add({ id, photo, name, price, desc }));
   };
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={onClick}>
       <img src={photo} className={styles.image} alt={name} />
       <div className={styles.details}>
         <div>
@@ -23,9 +24,7 @@ export default function FoodCard({ id, photo, name, price, desc }) {
         </div>
         <div className={styles.actions}>
           <button className={styles.addButton} onClick={addToCart}>
-            <div className={styles.addIcon}>
-            +
-            </div>
+            <div className={styles.addIcon}>+</div>
           </button>
         </div>
       </div>
