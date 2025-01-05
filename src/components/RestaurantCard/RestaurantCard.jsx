@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Truck, ShoppingBag, Calendar, Star } from "lucide-react";
 import styles from "./RestaurantCard.module.css";
 
 export default function RestaurantCard({ restaurant, onClick }) {
+ 
   return (
     <div className={styles.card} onClick={onClick}>
       <div className={styles.imageContainer}>
@@ -17,7 +18,7 @@ export default function RestaurantCard({ restaurant, onClick }) {
           <p className={styles.mainText}>
             {restaurant.name}
             <span className={styles.rating}>
-            ☆ {restaurant.rating || "N/A"}
+            ☆ {restaurant.rating || "0"}
             </span>
           </p>
         </div>

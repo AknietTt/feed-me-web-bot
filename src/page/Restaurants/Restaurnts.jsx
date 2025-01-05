@@ -18,9 +18,7 @@ export default function Restaurants() {
       if (response.data.isSuccess) {
         setRestaurants(
           response.data.value.map((restaurant) => ({
-            ...restaurant,
-            rating: 10,
-          }))
+            ...restaurant          }))
         );
       } else {
         console.error("Ошибка при загрузке ресторанов:", response.data.error);
@@ -89,6 +87,7 @@ export default function Restaurants() {
                     name: restaurant.name,
                     desc: restaurant.description,
                     id: restaurant.id,
+                    rating: restaurant.rating,
                   },
                 })
               }

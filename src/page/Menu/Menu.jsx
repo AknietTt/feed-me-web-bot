@@ -16,7 +16,7 @@ export default function Menu() {
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const { cityId } = useParams();
   const location = useLocation();
-  const { imageUrl, name, desc, id } = location.state;
+  const { imageUrl, name, desc, id , rating} = location.state;
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const cartTotal = cart.items.reduce(
@@ -56,7 +56,7 @@ export default function Menu() {
 
   return (
     <div className="main">
-      <Haeder photo={imageUrl} name={name} desc={desc} />
+      <Haeder photo={imageUrl} name={name} desc={desc} reting={rating}/>
       <div style={{ margin: 10 }}>
         {foods.map((category) => (
           <div key={category.categoryName}>
