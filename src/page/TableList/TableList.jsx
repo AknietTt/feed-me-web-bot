@@ -4,7 +4,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import styles from "./TableList.module.css";
 import { HOST } from "../../constants";
 import { useLocation } from "react-router-dom";
-import { User, MapPin , Tag } from "lucide-react"; // Import icons from lucide-react
+import { User, MapPin, Tag } from "lucide-react"; // Import icons from lucide-react
+import { Carousel } from "antd"; // Ant Design Carousel
 
 export default function TableList() {
   const [tables, setTables] = useState([]);
@@ -18,6 +19,7 @@ export default function TableList() {
   const queryParams = new URLSearchParams(location.search);
   const openingTime = queryParams.get("openingTime");
   const closingTime = queryParams.get("closingTime");
+
   const fetchTables = async (date) => {
     setLoading(true);
     try {
@@ -47,7 +49,6 @@ export default function TableList() {
       alert("Пожалуйста, выберите дату бронирования!");
       return;
     }
-    // Передаем выбранную дату на страницу бронирования через параметры маршрута
     navigate(
       `/${cityId}/branch/tables/${branchId}/reservation/${tableId}?date=${selectedDate}&openingTime=${openingTime}&closingTime=${closingTime}`
     );
@@ -72,62 +73,77 @@ export default function TableList() {
     setSelectedDate(selected);
   };
 
-  return (<div className={styles.container}>
-    <h2 className={styles.title}>Бронирование стола</h2>
-    <div className={styles.datePickerContainer}>
-      <p>Выберите удобную дату:</p>
-      <input
-        type="date"
-        value={selectedDate}
-        onChange={handleDateChange}
-        className={styles.datePicker}
-      />
-    </div>
-    {loading ? (
-      <p>Загрузка столиков...</p>
-    ) : (
-      <div className={styles.tableList}>
-        {tables.map((table) => (
-          <div
-            className={styles.card}
-            key={table.id}
-            onClick={() => handleTableClick(table.id)}
-          >
-            <h3 className={styles.tableNumber}>Столик №{table.number}</h3>
-            <div className={styles.iconRow}>
-              <div className={styles.iconContainer}>
-                <User size={20} className={styles.icon} />
-                <span>{table.seats}</span>
-              </div>
-              <div className={styles.iconContainer}>
-                <MapPin size={20} className={styles.icon} />
-                <span>{table.location}</span>
-              </div>
-            </div>
-            <div className={styles.iconContainer}>
-            <Tag size={20} className={styles.icon} />
-              <span>{table.type}</span>
-            </div>
-            {table.features && (
-              <div className={styles.features}>
-                <ul>
-                  {table.features.split(",").map((feature, index) => (
-                    <li key={index}>{feature.trim()}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            <p className={styles.info}>
-              Минимальный заказ:{" "}
-              {table.minimumOrder > 0 ? `${table.minimumOrder}₸` : "Нет"}
-            </p>
-            <div className={styles.buttonContainer}>
-              <button className={styles.bookButton}>Выбрать стол</button>
-            </div>
-          </div>
-        ))}
+  return (
+    <div className={styles.container}>
+      <h2 className={styles.title}>Бронирование стола</h2>
+      <div className={styles.datePickerContainer}>
+        <p>Выберите удобную дату:</p>
+        <input
+          type="date"
+          value={selectedDate}
+          onChange={handleDateChange}
+          className={styles.datePicker}
+        />
       </div>
-    )}
-  </div>
+      {loading ? (
+        <p>Загрузка столиков...</p>
+      ) : (
+        <div className={styles.tableList}>
+          {tables.map((table) => (
+            <div
+              className={styles.card}
+              key={table.id}
+              onClick={() => handleTableClick(table.id)}
+            >
+              <h3 className={styles.tableNumber}>Столик №{table.number}</h3>
+              {table.imageUrls && table.imageUrls.length > 0 && (
+                <Carousel autoplay className={styles.carousel}>
+                  {table.imageUrls.map((url, index) => (
+                    <div key={index}>
+                      <img
+                        src={url}
+                        alt={`Фото столика ${table.number}`}
+                        className={styles.carouselImage}
+                      />
+                    </div>
+                  ))}
+                </Carousel>
+              )}
+              <div className={styles.iconRow}>
+                <div className={styles.iconContainer}>
+                  <User size={20} className={styles.icon} />
+                  <span>{table.seats}</span>
+                </div>
+                <div className={styles.iconContainer}>
+                  <MapPin size={20} className={styles.icon} />
+                  <span>{table.location}</span>
+                </div>
+              </div>
+              <div className={styles.iconContainer}>
+                <Tag size={20} className={styles.icon} />
+                <span>{table.type}</span>
+              </div>
+              {table.features && (
+                <div className={styles.features}>
+                  <ul>
+                    {table.features.split(",").map((feature, index) => (
+                      <li key={index}>{feature.trim()}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <p className={styles.info}>
+                Минимальный заказ:{" "}
+                {table.minimumOrder > 0 ? `${table.minimumOrder}₸` : "Нет"}
+              </p>
+              
+              <div className={styles.buttonContainer}>
+                <button className={styles.bookButton}>Выбрать стол</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }

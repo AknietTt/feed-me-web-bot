@@ -27,6 +27,7 @@ export default function OrderForm() {
     floor: "",
     comment: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const totalSum = useMemo(() => {
     const cartSum = cartItems.reduce(
@@ -46,6 +47,7 @@ export default function OrderForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     const orderDetailDtos = cartItems.map((item) => ({
       foodId: item.food.id,
@@ -90,6 +92,8 @@ export default function OrderForm() {
     } catch (error) {
       console.error("Error creating order:", error);
       alert("Произошла ошибка при создании заказа.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -223,8 +227,12 @@ export default function OrderForm() {
             className={styles.textarea}
           ></textarea>
         </div>
-        <button type="submit" className={styles.submitButton}>
-          Подтвердить
+        <button
+          type="submit"
+          className={styles.submitButton}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Отправка..." : "Подтвердить"}
         </button>
         <div style={{ marginTop: "200px" }}></div>
       </form>

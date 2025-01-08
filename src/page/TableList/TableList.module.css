@@ -69,6 +69,19 @@
   align-items: center;
   margin-bottom: 15px;
 }
+.carousel {
+  margin-top: 10px;
+}
+
+.carousel img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-top: 1px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
 
 .iconContainer {
   display: flex;

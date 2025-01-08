@@ -40,22 +40,29 @@ export default function ReservationForm() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
+  
     if (name === "reservationTime") {
       const reservationMinutes = timeToMinutes(value);
       const openingMinutes = timeToMinutes(openingTime);
       const closingMinutes = timeToMinutes(closingTime);
-
-      if (reservationMinutes < openingMinutes || reservationMinutes > closingMinutes) {
+  
+      // Проверяем переход через полночь
+      const isValidTime =
+        (openingMinutes <= closingMinutes && reservationMinutes >= openingMinutes && reservationMinutes <= closingMinutes) || // Один и тот же день
+        (openingMinutes > closingMinutes && // Переход через полночь
+          (reservationMinutes >= openingMinutes || reservationMinutes <= closingMinutes));
+  
+      if (!isValidTime) {
         alert(
           `Время бронирования должно быть между ${openingTime} и ${closingTime}`
         );
         return;
       }
     }
-
+  
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
