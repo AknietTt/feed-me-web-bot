@@ -28,7 +28,7 @@ export default function Reservation() {
   }, [cityId]);
 
   const handleRestaurantClick = (restaurantId) => {
-    navigate(`/${cityId}/branches-with-tables/${restaurantId}`);
+    navigate(`/feed-me/${cityId}/branches-with-tables/${restaurantId}`);
   };
 
   return (

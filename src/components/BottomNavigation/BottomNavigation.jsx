@@ -17,7 +17,7 @@ const BottomNavigation = () => {
 
   const handleSelect = (id, route) => {
     setSelected(id);
-    navigate(`/${cityId}/${route}`); // Переход с учетом cityId
+    navigate(`/feed-me/${cityId}/${route}`); // Переход с учетом cityId
   };
 
   return (

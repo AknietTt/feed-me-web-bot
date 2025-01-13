@@ -76,7 +76,7 @@ const CartModal = ({ isOpen, onClose, onClear , restaurantId , cityId}) => {
           }}
           disable={cart.items.length === 0}
           onClick={() => {
-            naviagte(`/${cityId}/branch/${restaurantId}` );
+            naviagte(`/feed-me/${cityId}/branch/${restaurantId}` );
           }}
         >
           <div

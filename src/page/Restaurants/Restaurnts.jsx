@@ -81,7 +81,7 @@ export default function Restaurants() {
               key={restaurant.id}
               restaurant={restaurant}
               onClick={() =>
-                navigate(`/${cityId}/menu/${restaurant.id}`, {
+                navigate(`/feed-me/${cityId}/menu/${restaurant.id}`, {
                   state: {
                     imageUrl: restaurant.photo,
                     name: restaurant.name,

@@ -11,7 +11,7 @@ export default function Done() {
   }, []);
 
   const handleGoBack = () => {
-    navigate('/');
+    navigate('/feed-me/');
   };
 
   return (

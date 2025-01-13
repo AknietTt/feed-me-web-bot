@@ -32,7 +32,7 @@ export default function Branch() {
 
   // Функция для перехода на страницу заказа
   const handleOrder = (branchId, type , deliverySumm) => {
-    navigate(`/${cityId}/order`, { state: { branchId, orderType: type, deliverySumm} }); // Передаем id филиала и тип заказа через state
+    navigate(`/feed-me/${cityId}/order`, { state: { branchId, orderType: type, deliverySumm} }); // Передаем id филиала и тип заказа через state
   };
 
   return (

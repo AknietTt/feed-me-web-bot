@@ -25,23 +25,23 @@ import Scan from "./page/Scan/Scan.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/feed-me/",
     element: <SelectCity />, // Страница выбора города
   },
   {
-    path: "/done",
+    path: "/feed-me/done",
     element: <Done />, // Страница завершения
   },
   {
-    path:"/qr/order",
+    path:"/feed-me/qr/order",
     element:<QRMenu/>
   },
   {
-    path:"/restaurant/:restaurantId/table/:tableId/order",
+    path:"/feed-me/restaurant/:restaurantId/table/:tableId/order",
     element:<OrderTable/>
   },
   {
-    path: "/:cityId",
+    path: "/feed-me/:cityId",
     element: <AppLayout />, // Обертка с Bottom Navigation
     children: [
       {

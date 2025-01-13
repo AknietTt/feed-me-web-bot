@@ -50,7 +50,7 @@ export default function TableList() {
       return;
     }
     navigate(
-      `/${cityId}/branch/tables/${branchId}/reservation/${tableId}?date=${selectedDate}&openingTime=${openingTime}&closingTime=${closingTime}`
+      `/feed-me/${cityId}/branch/tables/${branchId}/reservation/${tableId}?date=${selectedDate}&openingTime=${openingTime}&closingTime=${closingTime}`
     );
   };
 

@@ -88,7 +88,7 @@ export default function OrderForm() {
       });
 
       dispatch(cartActions.clean());
-      navigate("/done");
+      navigate("/feed-me/done");
     } catch (error) {
       console.error("Error creating order:", error);
       alert("Произошла ошибка при создании заказа.");

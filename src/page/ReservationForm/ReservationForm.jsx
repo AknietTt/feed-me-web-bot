@@ -75,7 +75,7 @@ export default function ReservationForm() {
       const response = await axios.post(`${HOST}/reservations`, payload);
       if (response.data.isSuccess) {
         alert("Бронь успешно оформлена!");
-        navigate("/");
+        navigate("/feed-me/");
       } else {
         alert("Ошибка при оформлении брони: " + response.data.error);
       }
