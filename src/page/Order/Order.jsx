@@ -26,6 +26,7 @@ export default function OrderForm() {
     apartmentOrOffice: "",
     floor: "",
     comment: "",
+    kaspiPayNumber: "", // Добавлено новое поле
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -65,6 +66,7 @@ export default function OrderForm() {
         orderType === "delivery" ? formData.apartmentOrOffice : "",
       floor: orderType === "delivery" ? formData.floor : "",
       comment: formData.comment,
+      kaspiPayNumber: formData.kaspiPayNumber, // Передача нового поля
       telegramChatId: telegramChatId,
       telegramUserId: telegramUserId,
       pickup: orderType === "pickup",
@@ -85,6 +87,7 @@ export default function OrderForm() {
         apartmentOrOffice: "",
         floor: "",
         comment: "",
+        kaspiPayNumber: "", // Сброс нового поля
       });
 
       dispatch(cartActions.clean());
@@ -211,6 +214,19 @@ export default function OrderForm() {
             name="phoneNumber"
             placeholder="Ваш телефон"
             value={formData.phoneNumber}
+            onChange={handleChange}
+            required
+            className={styles.input}
+          />
+        </div>
+        <div className={styles.inputGroup}>
+          <label htmlFor="kaspiPayNumber">Номер для счет на оплату "Kaspi"</label>
+          <input
+            type="tel"
+            id="kaspiPayNumber"
+            name="kaspiPayNumber"
+            placeholder={`Ваш номер номер "Kaspi"`}
+            value={formData.kaspiPayNumber}
             onChange={handleChange}
             required
             className={styles.input}
