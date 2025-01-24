@@ -107,7 +107,7 @@ const OnlineMenu = () => {
             <p className={styles.modalDescription}>{selectedFood.description}</p>
             <p className={styles.modalPrice}>{selectedFood.price} ₸</p>
             <button className={styles.closeButton} onClick={closeModal}>
-              Close
+              Закрть
             </button>
           </div>
         </div>
