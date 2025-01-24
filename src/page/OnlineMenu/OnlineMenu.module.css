@@ -1,0 +1,151 @@
+.menuContainer {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .categorySection {
+    margin-bottom: 20px;
+  }
+  
+  .categoryTitle {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .foodList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .foodCard {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .foodCard:hover {
+    transform: scale(1.02);
+  }
+  
+  .foodImage {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 10px;
+  }
+  
+  .foodDetails {
+    flex: 1;
+  }
+  
+  .foodName {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+  }
+  
+  .foodDescription {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .foodPrice {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modalContent {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+  }
+  
+  .modalImage {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .modalTitle {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .modalDescription {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .modalPrice {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .closeButton {
+    padding: 10px 20px;
+    background-color: #f04e30;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .closeButton:hover {
+    background-color: #c03c24;
+  }
+  /* OnlineMenu.module.css */
+.categoryNav {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px 0;
+    white-space: nowrap;
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+  }
+  
+  .categoryNav::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Webkit-based browsers */
+  }
+  
+  .categoryButton {
+    padding: 8px 16px;
+    border: none;
+    background-color: #666;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+  }
+  
+  
+  

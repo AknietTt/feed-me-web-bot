@@ -22,6 +22,7 @@ import ReservationForm from "./page/ReservationForm/ReservationForm.jsx";
 import QRMenu from "./page/QRMenu/QRMenu.jsx";
 import OrderTable from "./page/OrderTable/OrderTable.jsx";
 import Scan from "./page/Scan/Scan.jsx";
+import OnlineMenu from "./page/OnlineMenu/OnlineMenu.jsx";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path:"/feed-me/restaurant/:restaurantId/table/:tableId/order",
     element:<OrderTable/>
+  },
+  {
+    path:"/feed-me/restaurant/:restaurantId",
+    element:<OnlineMenu/>
   },
   {
     path: "/feed-me/:cityId",
