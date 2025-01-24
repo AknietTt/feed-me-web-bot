@@ -26,27 +26,27 @@ import OnlineMenu from "./page/OnlineMenu/OnlineMenu.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/feed-me/",
+    path: "/",
     element: <SelectCity />, // Страница выбора города
   },
   {
-    path: "/feed-me/done",
+    path: "/done",
     element: <Done />, // Страница завершения
   },
   {
-    path:"/feed-me/qr/order",
+    path:"/qr/order",
     element:<QRMenu/>
   },
   {
-    path:"/feed-me/restaurant/:restaurantId/table/:tableId/order",
+    path:"/restaurant/:restaurantId/table/:tableId/order",
     element:<OrderTable/>
   },
   {
-    path:"/feed-me/restaurant/:restaurantId",
+    path:"/restaurant/:restaurantId",
     element:<OnlineMenu/>
   },
   {
-    path: "/feed-me/:cityId",
+    path: "/:cityId",
     element: <AppLayout />, // Обертка с Bottom Navigation
     children: [
       {
