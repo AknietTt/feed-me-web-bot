@@ -74,20 +74,26 @@ export default function Pickup() {
         />
         <div className={styles.gridContainer}>
           {restaurants.map((restaurant) => (
-            <RestaurantCard
+            <div
               key={restaurant.id}
-              restaurant={restaurant}
-              onClick={() =>
-                navigate(`/feed-me/${cityId}/menu/${restaurant.id}`, {
-                  state: {
-                    imageUrl: restaurant.photo,
-                    name: restaurant.name,
-                    desc: restaurant.description,
-                    id: restaurant.id,
-                  },
-                })
-              }
-            />
+              className={`${styles.restaurantCard} ${
+                !restaurant.isOpen ? styles.disabledCard : ""
+              }`}
+              onClick={() => {
+                if (restaurant.isOpen) {
+                  navigate(`/feed-me/${cityId}/menu/${restaurant.id}`, {
+                    state: {
+                      imageUrl: restaurant.photo,
+                      name: restaurant.name,
+                      desc: restaurant.description,
+                      id: restaurant.id,
+                    },
+                  });
+                }
+              }}
+            >
+              <RestaurantCard restaurant={restaurant} />
+            </div>
           ))}
         </div>
       </div>

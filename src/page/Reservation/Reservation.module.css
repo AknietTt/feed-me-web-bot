@@ -3,6 +3,7 @@
     max-width: 1200px;
     margin: 0 auto;
     background-color: #f9f9f9;
+    padding-bottom: 100px;
   }
   
   .title {
@@ -13,6 +14,26 @@
     text-align: center;
     margin-bottom: 20px;
   }
+  .disabledCard {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  
+  .closedOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
   
   .restaurantList {
     display: flex;

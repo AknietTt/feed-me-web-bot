@@ -56,12 +56,15 @@ export default function TableList() {
 
   const handleDateChange = (event) => {
     const selected = event.target.value;
-    const today = new Date().toISOString().split("T")[0];
-    const maxDate = new Date();
-    maxDate.setDate(maxDate.getDate() + 90);
+    const today = new Date();
+    today.setDate(today.getDate() + 1); // Завтра
+    const minDate = today.toISOString().split("T")[0]; // Минимальная дата (завтра)
 
-    if (selected < today) {
-      alert("Вы не можете выбрать прошедшую дату!");
+    const maxDate = new Date();
+    maxDate.setDate(maxDate.getDate() + 90); // Максимальная дата (+90 дней)
+
+    if (selected < minDate) {
+      alert("Вы не можете выбрать сегодняшнюю или прошедшую дату!");
       return;
     }
 
@@ -71,7 +74,7 @@ export default function TableList() {
     }
 
     setSelectedDate(selected);
-  };
+};
 
   return (
     <div className={styles.container}>

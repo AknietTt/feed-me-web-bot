@@ -18,7 +18,8 @@ export default function Restaurants() {
       if (response.data.isSuccess) {
         setRestaurants(
           response.data.value.map((restaurant) => ({
-            ...restaurant          }))
+            ...restaurant,
+          }))
         );
       } else {
         console.error("Ошибка при загрузке ресторанов:", response.data.error);
@@ -30,7 +31,9 @@ export default function Restaurants() {
 
   const searchRestaurants = async (query) => {
     try {
-      const response = await axios.get(`${HOST}/restaurant/search/${encodeURIComponent(query)}`);
+      const response = await axios.get(
+        `${HOST}/restaurant/search/${encodeURIComponent(query)}`
+      );
       setRestaurants(
         response.data.value.map((restaurant) => ({
           ...restaurant,
@@ -77,21 +80,28 @@ export default function Restaurants() {
         />
         <div className={styles.gridContainer}>
           {restaurants.map((restaurant) => (
-            <RestaurantCard
+            <div
               key={restaurant.id}
-              restaurant={restaurant}
-              onClick={() =>
-                navigate(`/feed-me/${cityId}/menu/${restaurant.id}`, {
-                  state: {
-                    imageUrl: restaurant.photo,
-                    name: restaurant.name,
-                    desc: restaurant.description,
-                    id: restaurant.id,
-                    rating: restaurant.rating,
-                  },
-                })
-              }
-            />
+              className={`${styles.restaurantCard} ${
+                !restaurant.isOpen ? styles.disabledCard : ""
+              }`}
+              onClick={() => {
+                if (restaurant.isOpen) {
+                  navigate(`/feed-me/${cityId}/menu/${restaurant.id}`, {
+                    state: {
+                      imageUrl: restaurant.photo,
+                      name: restaurant.name,
+                      desc: restaurant.description,
+                      id: restaurant.id,
+                      rating: restaurant.rating,
+                    },
+                  });
+                }
+              }}
+            >
+              <RestaurantCard restaurant={restaurant} />
+              
+            </div>
           ))}
         </div>
       </div>

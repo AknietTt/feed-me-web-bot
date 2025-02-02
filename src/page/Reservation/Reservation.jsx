@@ -14,6 +14,8 @@ export default function Reservation() {
     try {
       const response = await axios.get(`${HOST}/restaurants/${cityId}/booking`);
       if (response.data.isSuccess) {
+        console.log(response.data.value);
+        
         setRestaurants(response.data.value);
       } else {
         console.error("Ошибка при загрузке ресторанов:", response.data.error);
@@ -27,8 +29,10 @@ export default function Reservation() {
     fetchRestaurantsWithBooking();
   }, [cityId]);
 
-  const handleRestaurantClick = (restaurantId) => {
-    navigate(`/feed-me/${cityId}/branches-with-tables/${restaurantId}`);
+  const handleRestaurantClick = (restaurant) => {
+    if (restaurant.isOpen) {
+      navigate(`/feed-me/${cityId}/branches-with-tables/${restaurant.id}`);
+    }
   };
 
   return (
@@ -36,11 +40,15 @@ export default function Reservation() {
       <h2 className={styles.title}>Рестораны для бронирования</h2>
       <div className={styles.restaurantList}>
         {restaurants.map((restaurant) => (
-          <RestaurantCard
+          <div
             key={restaurant.id}
-            restaurant={restaurant}
-            onClick={() => handleRestaurantClick(restaurant.id)}
-          />
+            className={`${styles.restaurantCard} ${
+              !restaurant.isOpen ? styles.disabledCard : ""
+            }`}
+            onClick={() => handleRestaurantClick(restaurant)}
+          >
+            <RestaurantCard restaurant={restaurant} />
+          </div>
         ))}
       </div>
     </div>
