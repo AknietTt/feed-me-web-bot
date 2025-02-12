@@ -76,7 +76,7 @@ export default function Restaurants() {
           className={styles.input}
           value={searchText}
           onChange={handleSearchInput}
-          placeholder="Поиск ресторанов"
+          placeholder="Поиск блюд, ресторанов"
         />
         <div className={styles.gridContainer}>
           {restaurants.map((restaurant) => (

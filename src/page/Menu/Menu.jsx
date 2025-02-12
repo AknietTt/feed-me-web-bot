@@ -10,13 +10,14 @@ import { cartActions } from "../../store/cartSlice";
 import Button from "../../components/Button/Button";
 import CartModal from "../../components/CartModal/CartModal";
 import FoodModal from "../../components/FoodModal/FoodModal";
+import BackButton from "../../components/BackButton/BackButton";
 
 export default function Menu() {
   const [foods, setFood] = useState([]);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const { cityId } = useParams();
   const location = useLocation();
-  const { imageUrl, name, desc, id , rating} = location.state;
+  const { imageUrl, name, desc, id, rating } = location.state;
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const cartTotal = cart.items.reduce(
@@ -46,17 +47,19 @@ export default function Menu() {
     dispatch(cartActions.clean());
   };
 
-  const handleFoodClick = (food) => {    
+  const handleFoodClick = (food) => {
     setSelectedFood(food); // Устанавливает выбранную еду
   };
-  
+
   useEffect(() => {
     getFoods();
   }, []);
 
   return (
     <div className="main">
-      <Haeder photo={imageUrl} name={name} desc={desc} reting={rating}/>
+      {" "}
+      <Haeder photo={imageUrl} name={name} desc={desc} reting={rating} />
+      <BackButton />
       <div style={{ margin: 10 }}>
         {foods.map((category) => (
           <div key={category.categoryName}>
@@ -96,10 +99,9 @@ export default function Menu() {
         cityId={cityId}
       />
       <FoodModal
-      food={selectedFood}
-      onClose={() => setSelectedFood(null)} // Закрыть модальное окно
-    />
-
+        food={selectedFood}
+        onClose={() => setSelectedFood(null)} // Закрыть модальное окно
+      />
       <div style={{ margin: "150px" }}></div>
     </div>
   );

@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./Branch.module.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { HOST } from "../../constants";
+import BackButton from "../../components/BackButton/BackButton";
 
 export default function Branch() {
   const { restaurantId } = useParams();
@@ -37,7 +38,12 @@ export default function Branch() {
 
   return (
     <div className={styles["branch-container"]}>
-      <h2>Выберите филиал и способ заказа</h2>
+      <div >
+
+      <BackButton />
+      </div>
+
+      <h2 style={{paddingTop:50}}>Выберите филиал и способ заказа</h2>
       <div className={styles["branch-list"]}>
         {branches.map((branch) => (
           <div className={styles["branch-card"]} key={branch.id}>
