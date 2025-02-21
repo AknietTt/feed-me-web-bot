@@ -31,12 +31,17 @@ export default function Menu() {
 
   useEffect(() => {
     const fetchFoods = async () => {
-      const res = await axios.get(`${HOST}/menus/foods?restaurantId=${id}`);
-      setFoods(res.data.value);
+      try {
+        const res = await axios.get(`${HOST}/menus/foods?restaurantId=${id}`);
+        setFoods(res.data.value || []); // Добавляем защиту от null
+      } catch (error) {
+        console.error("Ошибка загрузки меню:", error);
+        setFoods([]); // В случае ошибки устанавливаем пустой массив
+      }
     };
     fetchFoods();
   }, [id]);
-
+  
   const scrollToCategory = (categoryName) => {
     const element = categoryRefs.current[categoryName];
     if (element) {
