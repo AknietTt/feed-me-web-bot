@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./FoodModal.module.css";
 
 export default function FoodModal({ food, onClose }) {
-  if (!food) return null; // Если нет выбранной еды, не рендерим ничего
+  if (!food) return null; // Если нет выбранного блюда, не рендерим модалку
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <img src={food.photo} alt={food.name} className={styles.modalImage} />
         <h2 className={styles.modalTitle}>{food.name}</h2>
-        <p className={styles.modalDescription}>{food.description}</p>
+        <div className={styles.modalDescriptionContainer}>
+          <p className={styles.modalDescription}>{food.description}</p>
+        </div>
         <p className={styles.modalPrice}>{food.price} ₸</p>
         <button className={styles.closeButton} onClick={onClose}>
           Закрыть
