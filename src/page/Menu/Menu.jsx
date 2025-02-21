@@ -41,20 +41,21 @@ export default function Menu() {
     };
     fetchFoods();
   }, [id]);
-  
+
   const scrollToCategory = (categoryName) => {
     const element = categoryRefs.current[categoryName];
     if (element) {
       const offset = 80; // Задаем отступ сверху (можно увеличить при необходимости)
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-      
+      const elementPosition =
+        element.getBoundingClientRect().top + window.scrollY;
+
       window.scrollTo({
         top: elementPosition - offset, // Смещаем вверх на offset пикселей
         behavior: "smooth",
       });
     }
   };
-    // Автоскролл списка категорий
+  // Автоскролл списка категорий
   useEffect(() => {
     if (activeCategory && categoryListRef.current) {
       const activeElement = categoryListRef.current.querySelector(
@@ -76,32 +77,32 @@ export default function Menu() {
       rootMargin: "0px 0px -90% 0px", // Проверяет, когда категория приближается к верху
       threshold: 0, // Срабатывает, когда категория пересекает границу
     };
-  
+
     const observer = new IntersectionObserver((entries) => {
       let topCategory = null;
       let minTop = window.innerHeight; // Начинаем с большого значения
-  
+
       entries.forEach((entry) => {
         const rect = entry.target.getBoundingClientRect();
-        
-        if (rect.top >= 0 && rect.top < minTop) { 
+
+        if (rect.top >= 0 && rect.top < minTop) {
           minTop = rect.top;
           topCategory = entry.target.dataset.category;
         }
       });
-  
+
       if (topCategory) {
         setActiveCategory(topCategory);
       }
     }, observerOptions);
-  
+
     Object.values(categoryRefs.current).forEach((section) => {
       if (section) observer.observe(section);
     });
-  
+
     return () => observer.disconnect();
   }, [foods]);
-   
+
   return (
     <div className="main">
       <Haeder photo={imageUrl} name={name} desc={desc} reting={rating} />
@@ -136,18 +137,22 @@ export default function Menu() {
           >
             <h2 className={styles.categoryTitle}>{category.categoryName}</h2>
             <div className={styles.foodCardContainer}>
-              {category.foods.map((food) => (
-                <FoodCard
-                  id={food.id}
-                  key={food.id}
-                  photo={food.photo}
-                  name={food.name}
-                  price={food.price}
-                  desc={food.description}
-                  addToCart={() => dispatch(cartActions.add(food))}
-                  onClick={() => setSelectedFood(food)}
-                />
-              ))}
+              {category.foods && Array.isArray(category.foods) ? (
+                category.foods.map((food) => (
+                  <FoodCard
+                    id={food.id}
+                    key={food.id}
+                    photo={food.photo}
+                    name={food.name}
+                    price={food.price}
+                    desc={food.description}
+                    addToCart={() => dispatch(cartActions.add(food))}
+                    onClick={() => setSelectedFood(food)}
+                  />
+                ))
+              ) : (
+                <p>Нет доступных блюд</p>
+              )}
             </div>
           </div>
         ))}
@@ -155,7 +160,10 @@ export default function Menu() {
         {/* Кнопка корзины */}
         <div className={styles.fixedButtonContainer}>
           {cart.items.length > 0 && (
-            <Button className={styles.fixedButton} onClick={() => setIsCartModalOpen(true)}>
+            <Button
+              className={styles.fixedButton}
+              onClick={() => setIsCartModalOpen(true)}
+            >
               {`${cartTotal} ₸`}
             </Button>
           )}
