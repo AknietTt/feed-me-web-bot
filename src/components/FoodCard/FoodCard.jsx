@@ -13,8 +13,10 @@ export default function FoodCard({ id, photo, name, price, desc, onClick }) {
 
   // Функция для сокращения описания
   const truncateText = (text, maxLength) => {
-    return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+    if (!text) return ""; // Проверяем, что text не null и не undefined
+    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
   };
+  
 
   return (
     <div className={styles.card} onClick={onClick}>
