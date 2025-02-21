@@ -33,7 +33,7 @@ export default function Menu() {
     const fetchFoods = async () => {
       try {
         const res = await axios.get(`${HOST}/menus/foods?restaurantId=${id}`);
-        setFoods(res.data.value || []); // Добавляем защиту от null
+        setFoods(Array.isArray(res.data.value) ? res.data.value : []); // Гарантируем, что foods — массив
       } catch (error) {
         console.error("Ошибка загрузки меню:", error);
         setFoods([]); // В случае ошибки устанавливаем пустой массив
@@ -128,34 +128,38 @@ export default function Menu() {
 
       {/* Блок с блюдами */}
       <div style={{ margin: 10 }}>
-        {foods.map((category) => (
-          <div
-            key={category.categoryName}
-            id={category.categoryName}
-            data-category={category.categoryName}
-            ref={(el) => (categoryRefs.current[category.categoryName] = el)}
-          >
-            <h2 className={styles.categoryTitle}>{category.categoryName}</h2>
-            <div className={styles.foodCardContainer}>
-              {category.foods && Array.isArray(category.foods) ? (
-                category.foods.map((food) => (
-                  <FoodCard
-                    id={food.id}
-                    key={food.id}
-                    photo={food.photo}
-                    name={food.name}
-                    price={food.price}
-                    desc={food.description}
-                    addToCart={() => dispatch(cartActions.add(food))}
-                    onClick={() => setSelectedFood(food)}
-                  />
-                ))
-              ) : (
-                <p>Нет доступных блюд</p>
-              )}
+        {foods.length > 0 ? (
+          foods.map((category) => (
+            <div
+              key={category.categoryName}
+              id={category.categoryName}
+              data-category={category.categoryName}
+              ref={(el) => (categoryRefs.current[category.categoryName] = el)}
+            >
+              <h2 className={styles.categoryTitle}>{category.categoryName}</h2>
+              <div className={styles.foodCardContainer}>
+                {Array.isArray(category.foods) && category.foods.length > 0 ? (
+                  category.foods.map((food) => (
+                    <FoodCard
+                      id={food.id}
+                      key={food.id}
+                      photo={food.photo}
+                      name={food.name}
+                      price={food.price}
+                      desc={food.description}
+                      addToCart={() => dispatch(cartActions.add(food))}
+                      onClick={() => setSelectedFood(food)}
+                    />
+                  ))
+                ) : (
+                  <p>Нет доступных блюд</p>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p>Меню пока недоступно</p>
+        )}
 
         {/* Кнопка корзины */}
         <div className={styles.fixedButtonContainer}>
